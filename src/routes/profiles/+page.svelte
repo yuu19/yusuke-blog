@@ -6,7 +6,7 @@
 <div class="mb-12">
   <h1 class="text-3xl font-bold mb-2">Yusuke Kushida</h1>
   <p class="text-lg"></p>
-  <p class="text-lg">Hobbies: Reading, Mathematics</p>
+  <p class="text-lg">秋田でプログラマーをしています。大学では数理ファイナンスを専攻していました。最近は型理論に興味があります。</p>
 </div>
 
 
@@ -17,6 +17,8 @@
       <li><span class="font-bold">2018年:</span> 茨城県立竹園高校卒業</li>
       <li><span class="font-bold">2022年:</span> 東北大学経済学部卒業</li>
       <li><span class="font-bold">2024年:</span> 東北大学経済学研究科卒業</li>
+      <li><span class="font-bold">2024年:</span> </li>
+    
     </ul>
   </section>
 

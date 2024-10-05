@@ -11,12 +11,13 @@
   <div>
     <div class="text-xl font-medium text-black mb-3">{article.metadata.title}</div>
     <div class="mt-2 flex items-center justify-start">
+      <p class="line-clamp-3 hover:line-clamp-4">{article.metadata.description}</p>
       <p
         class="inline-flex items-center px-2 py-1 bg-indigo-100 text-indigo-800 rounded-lg text-sm mr-2"
       >
         {article.metadata.category}
       </p>
-      <p class="text-gray-500 text-xs">{format(new Date(article.metadata.date), 'yyyy-MM-dd')}</p>
+      <p class="text-gray-500 text-xs">{article.metadata.date}</p>
     </div>
   </div>
 </a>

@@ -12,8 +12,7 @@
   <h1 class="text-3xl font-bold">My Awesome Tech Blog!</h1>
   <div class="mt-4">
     <p class="text-lg text-gray-600 text-s">
-      This is my tech blog. Packed with tech articles that serve as handy references for software
-      engineers. Feel free to bookmark if you like what you see!
+      今年の4月に新卒でプログラマーとして就職しました。当面はSveltekitやFastAPIに関する記事を中心に書く予定です。 
     </p>
   </div>
 </div>

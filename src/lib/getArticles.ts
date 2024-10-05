@@ -13,15 +13,36 @@ interface ArticleInfo {
   metadata: Metadata;
 }
 
+//記事のディレクトリ名からmdファイルのファイル名を取得する
+export function getArticleFilePath(slug: string): string {
+  const articlesDirectory = path.join(process.cwd(), 'articles');
+  const filenames = fs.readdirSync(path.join(articlesDirectory, slug));
+  const mdfilename: string | undefined = filenames.find((filename) => filename.endsWith('.md'));
+  if (mdfilename === undefined) {
+    throw new Error('mdファイルが見つかりません');
+  }
+  return path.resolve(articlesDirectory, slug, mdfilename);
+}
 //記事一覧を新しい順に取得する
 //slug: 記事のファイル名
 //metadata: 記事のメタデータ(タイトル、日付)
 export function getArticles(): ArticleInfo[] {
   const articlesDirectory = path.join(process.cwd(), 'articles');
-  const filenames = fs.readdirSync(articlesDirectory);
-  const articles: ArticleInfo[] = filenames.map((filename: string) => {
-    const slug = filename.replace(/\.[^.]+$/, ''); // 拡張子を取り除く
-    const fullpass = path.join(articlesDirectory, filename);
+  // const filenames = fs.readdirSync(articlesDirectory);
+  //各記事のフォルダ名を取得
+  const entries = fs.readdirSync(articlesDirectory, { withFileTypes: true });
+  const foldernames = entries.
+      filter((entry) => entry.isDirectory())
+      .map((entry) => entry.name);
+  
+  const articles: ArticleInfo[] = foldernames.map((foldername: string) => {
+    // const slug = filename.replace(/\.[^.]+$/, ''); // 拡張子を取り除く
+    const slug = foldername;
+    const mdfilename = fs.readdirSync(path.join(articlesDirectory, foldername)).find((filename) => filename.endsWith('.md'));
+    if (mdfilename === undefined) {
+      throw new Error('mdファイルが見つかりません');
+    }
+    const fullpass = path.join(articlesDirectory, foldername, mdfilename);
     const fileContents = fs.readFileSync(fullpass, 'utf8');
     const { data } = matter(fileContents); 
     const metadata = data as Metadata; // dataはany型なのでMetadata型にキャスト
