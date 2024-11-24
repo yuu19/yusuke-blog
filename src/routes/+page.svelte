@@ -1,6 +1,7 @@
 <script>
   export let data;
   import ArticleLink from '$lib/components/ArticleLink.svelte';
+  const publishedArticles = data.articles.filter(article => article.metadata.blog_published);
 </script>
 
 <svelte:head>
@@ -17,8 +18,9 @@
   </div>
 </div>
 
+
 <ul>
-  {#each data.articles as article}
+  {#each publishedArticles as article}
     <li>
       <ArticleLink {article} />
     </li>

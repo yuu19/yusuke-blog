@@ -12,7 +12,9 @@
 		//"moduleResolution": "bundler"
 		"moduleResolution": "bundler",
 		// "allowSyntheticDefaultImports": true,
-	}
+	},
+	"include": ["src/**/*", "src/types"] // 追加
+
 	// Path aliases are handled by https://kit.svelte.dev/docs/configuration#alias
 	// except $lib which is handled by https://kit.svelte.dev/docs/configuration#files
 	//

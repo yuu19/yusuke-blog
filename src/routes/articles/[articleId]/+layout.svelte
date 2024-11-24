@@ -1,5 +1,12 @@
 <script>
   import 'github-markdown-css/github-markdown-light.css';
+	import 'zenn-content-css';
+  import { onMount } from 'svelte';
+  onMount(async () => {
+    // 'zenn-embed-elements'を動的にインポート
+    await import('zenn-embed-elements');
+  });
+
 </script>
 
 
@@ -7,7 +14,7 @@
   <div class="flex-1 markdown-body">
     <slot />
   </div>
-  <div class="mt-4">
+  <div class="znc mt-4">
     <a href="/articles" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded inline-block text-center">
       記事一覧に戻る
     </a>
