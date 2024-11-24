@@ -8,6 +8,7 @@ interface Metadata {
 	description: string;
 	category: string;
 	blog_published: boolean;
+	topics: string[];
 }
 
 

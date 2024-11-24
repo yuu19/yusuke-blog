@@ -2,7 +2,7 @@
 title: 'full-stack-fastapi-templateのコードリーディング'
 description: 'full-stack-fastapi-templateはFastAPI公式から提供されているFastAPI+Reactによるサンプルアプリです。バックエンド部分を中心にコードリーディングの記録を残します(随時更新)'
 date: 2024-08-19
-category: svelte
+topics: ["svelte"]
 blog_published: True
 ---
 
@@ -134,7 +134,3 @@ sequenceDiagram
 
 参考
 https://ritou.hatenablog.com/entry/20140927/1411811648
-
-
-$$\int_{0}^\infty f(t) t \,dt$$
-

@@ -2,7 +2,8 @@
 title: 'Svelteでのコンポーネント間の変数の受け渡し'
 description: '記事1のdescription情報がここには入ります'
 date: 2024-08-19
-category: svelte
+topics: ["svelte"]
+blog_published: False
 ---
 
 

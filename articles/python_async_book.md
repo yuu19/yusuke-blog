@@ -2,7 +2,7 @@
 title: 'Programmer’s Python: Async - Threads, processes, asyncio & more: Something Completely Differentの読書メモ'
 description: ''
 date: 2024-08-19
-category: python
+topics: ["python", "async"]
 blog_published: True
 ---
 

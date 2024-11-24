@@ -51,6 +51,7 @@
 		"markdown-it-diagram": "^1.0.2",
 		"markdown-it-katex": "^2.0.3",
 		"markdown-it-mermaid": "^0.2.5",
+		"zenn-cli": "^0.1.158",
 		"zenn-content-css": "^0.1.158",
 		"zenn-embed-elements": "^0.1.158",
 		"zenn-markdown-html": "^0.1.158"
