@@ -25,6 +25,7 @@
       <a href="/" class="text-white hover:text-gray-400">home</a>
       <a href="/profiles" class="text-white hover:text-gray-400">Profile</a>
       <a href="/articles" class="text-white hover:text-gray-400">Articles</a>
+      <a href="/form" class="text-white hover:text-gray-400">Form</a>
     </nav>
   </header>
 
