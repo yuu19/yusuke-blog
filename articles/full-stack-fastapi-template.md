@@ -4,6 +4,7 @@ description: 'full-stack-fastapi-templateはFastAPI公式から提供されて�
 date: 2024-08-19
 topics: ["svelte"]
 blog_published: True
+published: False
 ---
 
 APIエンドポイント
@@ -20,6 +21,7 @@ api_router.include_router(items.router, prefix="/items", tags=["items"])
 `tags=["login"]`のように、タグ付けすることでSwaggerUI上でタグごとにパスが表示されるようになる。
 
 `backend/routers`以下で各ルーターを定義。
+
 
 
 
@@ -84,7 +86,7 @@ https://zenn.dev/nowa0402/articles/47e3edb0e93380
 例えば、ORMにSQLAlchemyを使う場合はSQLAlchemyモデルとPydanticモデルの2つを定義する必要がある。
 
 しかし、SQLModelの場合は[公式ドキュメント](https://sqlmodel.tiangolo.com/?h=pydantic#editor-support-everywhere)
-にあるように、SQLModelモデルとPydanticモデルを兼ねており、1箇所で定義すればよいので冗長性を減らすことができる。
+にあるように、SQLModelモデルはPydanticモデルとSQLAlchemyモデルを兼ねており、1箇所で定義すればよいので冗長性を減らすことができる。
 
 ```
 class User(UserBase, table=True):
@@ -92,7 +94,7 @@ class User(UserBase, table=True):
     hashed_password: str
     items: list["Item"] = Relationship(back_populates="owner", cascade_delete=True)
 ```
-のように`table=true`とした場合はテーブル定義に使用される。
+のように`table=true`とした場合にテーブル定義に使用される。
 
 参考: https://sqlmodel.tiangolo.com/tutorial/create-db-and-table/
 
@@ -107,6 +109,7 @@ class User(UserBase, table=True):
 
 `OAuth2PasswordRequestForm`の実装
 https://github.com/fastapi/fastapi/blob/master/fastapi/security/oauth2.py
+
 
 ```mermaid
 sequenceDiagram

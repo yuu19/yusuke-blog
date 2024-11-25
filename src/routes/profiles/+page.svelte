@@ -17,7 +17,7 @@
       <li><span class="font-bold">2018年:</span> 茨城県立竹園高校卒業</li>
       <li><span class="font-bold">2022年:</span> 東北大学経済学部卒業</li>
       <li><span class="font-bold">2024年:</span> 東北大学経済学研究科卒業</li>
-      <li><span class="font-bold">2024年:</span> </li>
+      <li><span class="font-bold">2024年 4月:</span>  </li>
     
     </ul>
   </section>

@@ -3,8 +3,9 @@ title: 'Sveltekitでの型定義'
 description: 'Sveltekit上で定義されている型定義を読み解くことを通じて、
 Typescriptでの型定義に慣れることが目標。'
 date: 2024-08-19
-category: sveltekit
+topics: ["sveltekit"]
 blog_published: False
+published: False
 ---
 
 

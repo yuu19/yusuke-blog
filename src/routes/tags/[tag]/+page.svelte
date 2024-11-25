@@ -5,12 +5,17 @@
   //blog_published: Trueの記事のみを抽出
   $: publishedArticles = data.articles.filter(article => article.metadata.blog_published);
   $: tagSelectedArticles = publishedArticles.filter(article => article.metadata.topics.includes($page.params.tag));
+  $: selectedTag = $page.params.tag;
 </script>
+
 
 <svelte:head>
   <title>My Awesome Articles</title>
   <meta name="description" content="There are lots of great articles" />
 </svelte:head>
+
+
+<h1>{selectedTag}</h1>
 
 <ul>
   {#each tagSelectedArticles as article}

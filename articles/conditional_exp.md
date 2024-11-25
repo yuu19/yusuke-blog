@@ -4,6 +4,7 @@ description: 'Katexがブログ上で使えることの確認も兼ねて、学�
 date: 2024-08-19
 topics: ["statistics"]
 blog_published: False
+published: False
 ---
 
 式が崩れている部分は後日に訂正をします(たぶん)

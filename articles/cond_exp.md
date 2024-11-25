@@ -4,6 +4,7 @@ description: 'Katexがブログ上で使えることの確認も兼ねて、学�
 date: 2024-08-19
 topics: ["statistics"]
 blog_published: True
+published: False
 ---
 
 ## **問題1**
