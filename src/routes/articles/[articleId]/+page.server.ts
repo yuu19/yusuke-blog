@@ -1,9 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import { promisify } from 'util';
-import markdownIt from 'markdown-it';
-import katexPlugin from '@vscode/markdown-it-katex';
-import MarkdownItDiagrams from 'markdown-it-diagram';
 import matter from 'gray-matter';
 import { format } from 'date-fns';
 // import markdownItMermaid from '@markslides/markdown-it-mermaid';
