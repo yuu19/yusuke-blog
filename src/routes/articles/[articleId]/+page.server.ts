@@ -35,19 +35,9 @@ export async function load({ params }: LoadParams) {
   }
   
   const parsedMatter = matter(fileContent); //メタデータと本文を分離してdata, contentに格納
-//   const mdParser = markdownIt();
-//   mdParser.use(katexPlugin.default);
-//   mdParser.use(MarkdownItDiagrams, {
-//     imageFormat: 'svg',
-//     mermaid: true,
-//     showController: true,
-//     ditaa: {imageFormat: 'svg'}
-// });
-  // const mdParser = new markdown().use(markdownItMermaid);
   const htmlContent = markdownToHtml(parsedMatter.content);
-  // const htmlContent = mdParser.render(parsedMatter.content);
-
-  let metadata = parsedMatter.data;
+ 
+  const metadata = parsedMatter.data;
   if(metadata.date instanceof Date) {
     metadata.date = format(metadata.date, 'yyyy-MM-dd');
   }

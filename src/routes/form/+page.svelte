@@ -4,9 +4,10 @@
   const YOUR_SERVICE_ID = import.meta.env.VITE_YOUR_SERVICE_ID;
   const YOUR_TEMPLATE_ID = import.meta.env.VITE_YOUR_TEMPLATE_ID;
   const YOUR_PUBLIC_KEY = import.meta.env.VITE_YOUR_PUBLIC_KEY;
-  const sendEmail = (e: any) => {
+  const sendEmail = (event: Event) => {
+    event.preventDefault();
     emailjs
-      .sendForm(YOUR_SERVICE_ID, YOUR_TEMPLATE_ID, e.target, {
+      .sendForm(YOUR_SERVICE_ID, YOUR_TEMPLATE_ID, event.target as HTMLFormElement, {
         publicKey: YOUR_PUBLIC_KEY,
       })
       .then(
@@ -24,7 +25,7 @@
 
 <div class="max-w-md mx-auto mt-10 p-6 bg-white rounded shadow">
   <h2 class="text-2xl font-bold mb-4">お問い合わせ</h2>
-  <form on:submit|preventDefault={sendEmail} class="space-y-4">
+  <form onsubmit={sendEmail} class="space-y-4">
     <div>
       <label class="block text-gray-700">ユーザーネーム</label>
       <input

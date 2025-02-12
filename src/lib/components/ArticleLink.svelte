@@ -1,5 +1,5 @@
 <script>
-  export let article;
+  let { article } = $props();
   import { format } from 'date-fns';
 </script>
 

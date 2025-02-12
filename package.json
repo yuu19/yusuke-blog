@@ -24,6 +24,7 @@
 		"@sveltejs/vite-plugin-svelte": "^5.0.3",
 		"@types/eslint": "^9.6.1",
 		"@types/markdown-it": "^14.1.2",
+		"@types/node": "^22.13.1",
 		"autoprefixer": "^10.4.20",
 		"eslint": "^9.20.0",
 		"eslint-config-prettier": "^10.0.1",

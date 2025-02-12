@@ -2,6 +2,7 @@
   import 'github-markdown-css/github-markdown-light.css';
 	import 'zenn-content-css';
   import { onMount } from 'svelte';
+  const { children } = $props();
   onMount(async () => {
     // 'zenn-embed-elements'を動的にインポート
     await import('zenn-embed-elements');
@@ -12,7 +13,7 @@
 
 <div class="flex flex-col min-h-screen p-4">
   <div class="flex-1 markdown-body">
-    <slot />
+    {@render children()}
   </div>
   <div class="znc mt-4">
     <p>記事へのご感想、ご意見は<a href="/form">問い合わせフォーム</a>からお送りください。</p>
