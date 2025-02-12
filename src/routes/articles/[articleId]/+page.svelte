@@ -1,5 +1,5 @@
 <script>
-  export let data;
+  let { data } = $props();
   
 </script>
 
@@ -20,17 +20,6 @@
     {data.metadata.description}
   </p>
   
-  <!-- カテゴリと日付のコンテナ -->
-  <!-- <div class="flex items-center space-x-4">
-    <span class="inline-flex items-center px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-100 rounded-full text-sm">
-      {#each data.metadata.topics as topic}
-        {topic}
-      {/each}
-    </span>
-    <span class="text-gray-500 dark:text-gray-400 text-xs">
-      {data.metadata.date}
-    </span>
-  </div> -->
   <div class="flex items-center space-x-4">
     <!-- タグ（トピック）部分 -->
     <div class="flex flex-wrap items-center space-x-2">

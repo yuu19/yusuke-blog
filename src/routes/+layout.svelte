@@ -1,5 +1,6 @@
 <script>
   import "../app.css";
+  let { children } = $props();
 </script>
 
 <svelte:head>
@@ -30,7 +31,7 @@
   </header>
 
   <div class="flex-grow px-4 py-6">
-    <slot />
+    {@render children()}
   </div>
   
   <footer class="bg-black py-2 text-center text-white">

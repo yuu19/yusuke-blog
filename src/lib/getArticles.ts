@@ -23,7 +23,7 @@ export function getArticles(): ArticleInfo[] {
 	const articlesDirectory = path.resolve(process.cwd(), 'articles');
 	const filenames = fs.readdirSync(articlesDirectory);
 
-	const articles: ArticleInfo[] = filenames.map((filename) => {
+	const articles: ArticleInfo[] = filenames.map((filename: string) => {
 		const slug = filename.replace(/\.[^.]+$/, '');
 		const fullPath = path.join(articlesDirectory, filename);
 		const fileContents = fs.readFileSync(fullPath, 'utf8');
@@ -37,6 +37,5 @@ export function getArticles(): ArticleInfo[] {
 		const bDate = new Date(b.metadata.date);
 		return bDate.valueOf() - aDate.valueOf();
 	});
-
 	return articles;
 }

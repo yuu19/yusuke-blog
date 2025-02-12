@@ -1,5 +1,5 @@
 <script>
-  export let data;
+  let { data } = $props();
   import ArticleLink from '$lib/components/ArticleLink.svelte';
   const publishedArticles = data.articles.filter(article => article.metadata.blog_published);
 </script>
