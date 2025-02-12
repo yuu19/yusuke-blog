@@ -4,7 +4,7 @@
   import ArticleLink from '$lib/components/ArticleLink.svelte';
   //blog_published: Trueの記事のみを抽出
   let publishedArticles = $derived(data.articles.filter(article => article.metadata.blog_published));
-  let tagSelectedArticles = $derived(publishedArticles.filter(article => article.metadata.topics.includes($page.params.tag)));
+  let tagSelectedArticles = $derived(publishedArticles.filter(article => article.metadata.topics.includes(page.params.tag)));
   let selectedTag = $derived(page.params.tag);
 </script>
 

@@ -37,6 +37,5 @@ export function getArticles(): ArticleInfo[] {
 		const bDate = new Date(b.metadata.date);
 		return bDate.valueOf() - aDate.valueOf();
 	});
-  console.log("debug", articles);
 	return articles;
 }

@@ -2,7 +2,6 @@
   let { data } = $props();
   import ArticleLink from '$lib/components/ArticleLink.svelte';
   //blog_published: Trueの記事のみを抽出
-  // console.log("デバッグ", data.articles);
   const publishedArticles = data.articles.filter(article => article.metadata.blog_published);
 </script>
 
