@@ -167,7 +167,7 @@ mv terraform-docs /some-dir-in-your-PATH/terraform-docs
 `terraform-docs markdown table  --output-file terraform.md --output-mode inj
 ect .`
 
-参考: [Docucment: Reference]((https://terraform-docs.io/reference/terraform-docs/))
+参考: [Docucment: Reference](https://terraform-docs.io/reference/terraform-docs/)
 
 
 以下のように、ドキュメントが自動生成されていることを確認できます。
