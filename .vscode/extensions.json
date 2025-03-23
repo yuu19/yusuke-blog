@@ -1,0 +1,12 @@
+{
+	"recommendations": [
+		"svelte.svelte-vscode",
+		"esbenp.prettier-vscode",
+		"dbaeumer.vscode-eslint",
+		"selemondev.vscode-shadcn-svelte",
+		"bradlc.vscode-tailwindcss",
+		"prisma.prisma",
+		"vitest.explorer",
+		"ms-playwright.playwright"
+	]
+}

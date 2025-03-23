@@ -54,6 +54,7 @@
 		"fs-extra": "^11.3.0",
 		"github-markdown-css": "^5.8.1",
 		"gray-matter": "^4.0.3",
+		"lucide-svelte": "^0.483.0",
 		"markdown-it": "^14.1.0",
 		"markdown-it-diagram": "^1.0.2",
 		"markdown-it-katex": "^2.0.3",
