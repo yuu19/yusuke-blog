@@ -57,4 +57,4 @@ articlesフォルダにmarkdown形式の記事を管理する。
 
 ## 現在のアーキテクチャー
 
-![設計図](./architecture.drawio.svg)
+![alt text](architecture.png)
