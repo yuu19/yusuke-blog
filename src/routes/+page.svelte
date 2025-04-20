@@ -14,10 +14,7 @@
 	<div class="mt-4">
 		<p class="text-lg text-gray-600">
 			今年の4月に新卒でプログラマーとして就職しました。当面は SvelteKit や FastAPI
-			に関する記事を中心に執筆する予定です。 記事へのご感想やご意見がありましたら、<a
-				href="/form"
-				class="text-blue-500 underline">こちら</a
-			>からお気軽にお送りください。
+			に関する記事を中心に執筆する予定です。
 		</p>
 	</div>
 </div>
