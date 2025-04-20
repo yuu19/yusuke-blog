@@ -50,7 +50,6 @@
 	"dependencies": {
 		"@emailjs/browser": "^4.4.1",
 		"@markslides/markdown-it-mermaid": "^0.3.6",
-		"@prisma/client": "^6.3.1",
 		"@vscode/markdown-it-katex": "^1.1.1",
 		"date-fns": "^4.1.0",
 		"fs": "^0.0.1-security",
@@ -62,7 +61,6 @@
 		"markdown-it-diagram": "^1.0.2",
 		"markdown-it-katex": "^2.0.3",
 		"markdown-it-mermaid": "^0.2.5",
-		"prisma": "^6.3.1",
 		"zenn-cli": "^0.1.158",
 		"zenn-content-css": "^0.1.158",
 		"zenn-embed-elements": "^0.1.158",
