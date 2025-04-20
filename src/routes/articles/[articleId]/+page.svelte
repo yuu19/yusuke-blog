@@ -1,6 +1,23 @@
 <script>
 	let { data } = $props();
 	import Tag from '$lib/components/Tag.svelte';
+	import Tree from '$lib/components/Tree.svelte';
+	import { createTableOfContents } from '@melt-ui/svelte';
+	import { pushState } from '$app/navigation';
+
+	const {
+		elements: { item },
+		states: { activeHeadingIdxs, headingsTree }
+	} = createTableOfContents({
+		selector: '#toc-builder-preview',
+		activeType: 'all',
+		/**
+		 * Here we can optionally provide SvelteKit's `pushState` function.
+		 * This function preserve navigation state within the framework.
+		 */
+		pushStateFn: pushState,
+		headingFilterFn: (heading) => !heading.hasAttribute('data-toc-ignore')
+	});
 </script>
 
 <svelte:head>
@@ -37,20 +54,35 @@
 	</div>
 </div>
 
-<div class="grid grid-cols-1 md:grid-cols-[3fr,auto] gap-4 mx-auto max-w-[1280px] znc">
-	<article class="markdown-body">{@html data.htmlContent}</article>
-	<aside class="md:w-[360px] md:pl-4 md:pt-0 pt-4">
-		<ul>
-			{#each data.toc as tocItem}
-				<li>
-					<a
-						href={`#${tocItem.id}`}
-						class="block text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200"
-					>
-						{tocItem.text}
-					</a>
-				</li>
-			{/each}
-		</ul>
-	</aside>
+<div id="toc-builder-preview">
+	<div class="grid grid-cols-1 md:grid-cols-[3fr,auto] gap-4 mx-auto max-w-[1280px] znc">
+		<article class="markdown-body">
+			{@html data.htmlContent}
+		</article>
+
+		<aside
+			class="
+				md:sticky md:top-20 md:self-start /* 常に画面上部 80px 下に固定 */
+				md:w-[360px] w-full /* md 以上: 360px / モバイル: 全幅 */
+				md:pl-4 pt-4 md:pt-0 /* 余白調整 */
+			"
+		>
+			<div
+				class="
+					rounded-xl border border-neutral-200
+					bg-gray-100 shadow-sm md:max-h-[calc(100vh-7rem)]
+					overflow-y-auto
+					p-4
+				"
+			>
+				<p class="mb-3 text-sm font-semibold text-neutral-700 tracking-wide">目次</p>
+
+				<nav class="toc space-y-2 text-sm">
+					{#key $headingsTree}
+						<Tree tree={$headingsTree} activeHeadingIdxs={$activeHeadingIdxs} {item} />
+					{/key}
+				</nav>
+			</div>
+		</aside>
+	</div>
 </div>

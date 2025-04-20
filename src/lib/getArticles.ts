@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 
-interface Metadata {
+export interface Metadata {
 	title: string;
 	date: string;
 	description: string;
@@ -12,9 +12,7 @@ interface Metadata {
 	topics: string[];
 }
 
-
-
-interface ArticleInfo {
+export interface ArticleInfo {
 	slug: string;
 	metadata: Metadata;
 }
@@ -28,7 +26,7 @@ export function getArticles(): ArticleInfo[] {
 		const fullPath = path.join(articlesDirectory, filename);
 		const fileContents = fs.readFileSync(fullPath, 'utf8');
 		const { data } = matter(fileContents); //フロントマターを抜き出す
-    
+
 		return { slug, metadata: data as Metadata };
 	});
 
