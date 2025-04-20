@@ -2,18 +2,19 @@
 title: 'UMVUEに関する演習問題'
 description: 'Katexがブログ上で使えることの確認も兼ねて、学生時代に解いた演習問題を記載する'
 date: 2024-08-19
-topics: ["statistics"]
+topics: ['statistics']
 blog_published: True
 published: False
 ---
 
 ## **問題1**
 
-**問題**
+### 問題
+
 $X$: 3-class categorical variable  
 $X_1, X_2, \cdots, X_n$は$X$と同分布に従う、独立な確率変数としてパラメータ$p = (p_1, p_2)$のFisher情報量行列$I(p_1, p_2)$を求めよ。
 
-**解答**
+### 解答
 
 $\mathbf{X} = (X_1, X_2, \cdots, X_n)$について、  
 $(X_1 = x_1, X_2 = x_2, \cdots, X_n = x_n)$としたときの尤度関数$L(x_1, x_2,  \cdots, x_n |\, p_1, p_2)$は
@@ -62,17 +63,17 @@ $$
 したがって、
 
 $$
-I(p_1, p_2) = 
+I(p_1, p_2) =
 \begin{pmatrix}
     I_{1, 1}(p_1, p_2) & I_{1, 2}(p_1, p_2) \\
     I_{2, 1}(p_1, p_2) & I_{2, 2}(p_1, p_2)
 \end{pmatrix}
-= 
+=
 \begin{pmatrix}
     \frac{n}{p_1} + \frac{n}{(1 - p_1 - p_2)} & \frac{n}{(1 - p_1 - p_2)} \\
     \frac{n}{(1 - p_1 - p_2)} & \frac{n}{p_2} + \frac{n}{(1 - p_1 - p_2)}
-\end{pmatrix} 
-= 
+\end{pmatrix}
+=
 \begin{pmatrix}
     \frac{n - n p_2}{p_1(1 - p_1 - p_2)} & \frac{n}{1 - p_1 - p_2} \\
     \frac{n}{1 - p_1 - p_2} & \frac{n - n p_1}{p_2(1 - p_1 - p_2)}
@@ -83,12 +84,12 @@ $$
 
 ## **問題2**
 
-**問題**
+### 問題
 
 推定量を$(\hat{p}_1, \hat{p}_2) = \left(\frac{N_1}{n}, \frac{N_2}{n}\right)$としたとの分散共分散行列$V$を計算し、  
 UMVUとなるかどうかを示せ。
 
-**解答**
+### 解答
 
 まず、推定量$(\hat{p}_1, \hat{p}_2)$の分散共分散行列$V$を計算する。
 
@@ -105,8 +106,8 @@ $$
 $$
 
 $$
-V = 
-\begin{pmatrix}     
+V =
+\begin{pmatrix}
     \frac{p_1(1-p_1)}{n} & - \frac{p_1 p_2}{n} \\
     - \frac{p_1 p_2}{n} & \frac{p_2(1-p_2)}{n}
 \end{pmatrix}
@@ -115,7 +116,7 @@ $$
 次に問題1で示したFisher情報量行列$I(p_1, p_2)$の逆行列を計算する。
 
 $$
-\det I(p_1, p_2) = \left(\frac{n}{p_1} + \frac{n}{(1 - p_1 - p_2)}\right) \left(\frac{n}{p_2} + \frac{n}{(1 - p_1 - p_2)}\right) - \left(\frac{n}{1 - p_1 - p_2}\right)^2 
+\det I(p_1, p_2) = \left(\frac{n}{p_1} + \frac{n}{(1 - p_1 - p_2)}\right) \left(\frac{n}{p_2} + \frac{n}{(1 - p_1 - p_2)}\right) - \left(\frac{n}{1 - p_1 - p_2}\right)^2
 $$
 
 $$
@@ -123,7 +124,7 @@ $$
 $$
 
 $$
-= \frac{n^2((1 - p_1 - p_2) + p_2 + p_1 )}{p_1 p_2 (1 - p_1 - p_2)} 
+= \frac{n^2((1 - p_1 - p_2) + p_2 + p_1 )}{p_1 p_2 (1 - p_1 - p_2)}
 = \frac{n^2}{p_1 p_2 (1 - p_1 - p_2)}
 $$
 
@@ -136,12 +137,12 @@ $$
 したがって、
 
 $$
-I^{-1}(p_1, p_2) = \frac{1}{\det I} 
+I^{-1}(p_1, p_2) = \frac{1}{\det I}
 \begin{pmatrix}
     \frac{n(1 - p_1)}{p_2(1 - p_1 - p_2)} & -\frac{n}{1 - p_1 - p_2} \\
     -\frac{n}{1 - p_1 - p_2} & \frac{n(1 - p_2)}{p_1(1 - p_1 - p_2)}
-\end{pmatrix} 
-= 
+\end{pmatrix}
+=
 \begin{pmatrix}
     \frac{p_1(1 - p_1)}{n} & \frac{- p_1 p_2}{n} \\
     \frac{- p_1 p_2}{n} & \frac{p_2 (1 - p_2)}{n}
