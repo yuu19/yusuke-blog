@@ -3,6 +3,7 @@
 	import 'zenn-content-css';
 	import { onMount } from 'svelte';
 	import { Button } from '$lib/components/ui/button/index.js';
+	import Comment from './Comment.svelte';
 	const { children } = $props();
 	onMount(async () => {
 		// 'zenn-embed-elements'を動的にインポート
@@ -17,5 +18,10 @@
 	<div class="mt-4">
 		<p>記事へのご感想、ご意見は<a href="/form">問い合わせフォーム</a>からお送りください。</p>
 		<Button class="mt-2" href="/articles">記事一覧に戻る</Button>
+	</div>
+	<div class="mt-16">
+		<p>コメント欄</p>
+		<!-- <div class="zenn-comment" data-id="zenn-embed-comment"></div> -->
+		<Comment />
 	</div>
 </div>
