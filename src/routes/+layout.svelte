@@ -37,6 +37,15 @@
 	</div>
 
 	<footer class="bg-black py-2 text-center text-white">
-		<p>My Awesome Website!</p>
+		<p>
+			© 2025 - Copyright yusuke, All Rights Reserved. このサイトは Google Analytics
+			を使用しています。
+		</p>
+		<p class="hover:text-gray-400">
+			<a href="https://policies.google.com/technologies/partner-sites?hl=ja"
+				>詳しくは Google のサービスを使用するサイトやアプリから収集した情報の Google による使用 –
+				ポリシーと規約</a
+			> をご覧ください。
+		</p>
 	</footer>
 </div>

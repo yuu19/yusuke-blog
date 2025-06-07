@@ -1,10 +1,14 @@
 <script lang="ts">
 	import { type TableOfContentsItem, type TableOfContentsElements, melt } from '@melt-ui/svelte';
+	import Self from './Tree.svelte';
+	interface Props {
+		tree: TableOfContentsItem[];
+		activeHeadingIdxs: number[];
+		item: TableOfContentsElements['item'];
+		level: number;
+	}
 
-	export let tree: TableOfContentsItem[] = [];
-	export let activeHeadingIdxs: number[];
-	export let item: TableOfContentsElements['item'];
-	export let level = 1;
+	let { tree = [], activeHeadingIdxs, item, level = 1 }: Props = $props();
 </script>
 
 <ul class="m-0 list-none {level !== 1 ? 'pl-4' : ''}">
@@ -25,7 +29,7 @@
 					{@html heading.node.innerHTML}
 				</a>
 				{#if heading.children && heading.children.length}
-					<svelte:self tree={heading.children} level={level + 1} {activeHeadingIdxs} {item} />
+					<Self tree={heading.children} level={level + 1} {activeHeadingIdxs} {item} />
 				{/if}
 			</li>
 		{/each}
