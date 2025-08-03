@@ -1,7 +1,24 @@
 <script>
 	import '../app.css';
+	import NProgress from 'nprogress';
+	import "nprogress/nprogress.css";
+
+	import { afterNavigate, beforeNavigate } from '$app/navigation';
+	
+	beforeNavigate(() => {
+		NProgress.start();
+	});
+	
+	afterNavigate(() => {
+		NProgress.done();
+	});
+	
+	NProgress.configure({
+		showSpinner: false
+	});
+	
 	let { children } = $props();
-	import { Github } from 'lucide-svelte';
+
 </script>
 
 <svelte:head>
@@ -18,17 +35,16 @@
 	</script>
 </svelte:head>
 
-<div class="flex flex-col min-h-screen">
-	<header class="flex items-center justify-between px-6 py-3 bg-black">
-		<h1 class="text-white font-bold text-xl">
+<div class="flex min-h-screen flex-col">
+	<header class="flex items-center justify-end bg-black px-6 py-3">
+		<!-- <h1 class="text-xl font-bold text-white">
 			<a href="/" class="text-xl font-bold text-white"> Tech Blog </a>
-		</h1>
+		</h1> -->
 		<nav class="flex gap-4">
 			<a href="/" class="text-white hover:text-gray-400">home</a>
 			<a href="/profiles" class="text-white hover:text-gray-400">Profile</a>
 			<a href="/articles" class="text-white hover:text-gray-400">Articles</a>
 			<a href="/form" class="text-white hover:text-gray-400">Form</a>
-			<a href="https://github.com/yuu19/yusuke-blog" target="_blank"><Github color="#d1cccc" /></a>
 		</nav>
 	</header>
 

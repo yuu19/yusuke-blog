@@ -1,37 +1,26 @@
-<script lang="ts">
-	import { type TableOfContentsItem, type TableOfContentsElements, melt } from '@melt-ui/svelte';
-	import Self from './Tree.svelte';
-	interface Props {
-		tree: TableOfContentsItem[];
-		activeHeadingIdxs: number[];
-		item: TableOfContentsElements['item'];
-		level: number;
-	}
-
-	let { tree = [], activeHeadingIdxs, item, level = 1 }: Props = $props();
+<script>
+  import Tree from './Tree.svelte';
+  let { tree, activeHeadingIdxs, item, melt } = $props();
 </script>
 
-<ul class="m-0 list-none {level !== 1 ? 'pl-4' : ''}">
-	{#if tree && tree.length}
-		{#each tree as heading, i (i)}
-			<li class="mt-0 pt-2">
-				<a
-					href="#{heading.id}"
-					use:melt={$item(heading.id)}
-					class="inline-flex items-center justify-center gap-1 text-neutral-500 no-underline transition-colors
-           hover:!text-magnum-600 data-[active]:text-magnum-700"
-				>
-					<!--
-            Along with the heading title, the original heading node
-            is also passed down, so you can display headings
-            however you want.
-          -->
-					{@html heading.node.innerHTML}
-				</a>
-				{#if heading.children && heading.children.length}
-					<Self tree={heading.children} level={level + 1} {activeHeadingIdxs} {item} />
-				{/if}
-			</li>
-		{/each}
-	{/if}
-</ul>
+{#each tree as node}
+  <div class="toc-item">
+    <a
+      use:melt={$item(node.id)}
+      href="#{node.id}"
+      class="toc-link {activeHeadingIdxs.includes(node.index) ? 'active' : ''}"
+      style="padding-left: {(node.level - 1) * 1}rem"
+    >
+      <span class="flex items-center gap-2">
+        <span class="w-1.5 h-1.5 rounded-full bg-current opacity-60"></span>
+        {node.title}
+      </span>
+    </a>
+    
+    {#if node.children && node.children.length > 0}
+      <div class="ml-2">
+        <Tree tree={node.children} {activeHeadingIdxs} {item} />
+      </div>
+    {/if}
+  </div>
+{/each}

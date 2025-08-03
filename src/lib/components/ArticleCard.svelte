@@ -14,7 +14,7 @@
 		</Card.Header>
 		<Card.Content class="flex-1">{article.metadata.description}</Card.Content>
 		<Card.Footer>
-			<div class="flex fles-wrap gap-1">
+			<div class="flex flex-wrap gap-1">
 				{#each article.metadata.topics as topic}
 					<Tag {topic} />
 				{/each}

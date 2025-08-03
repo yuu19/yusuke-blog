@@ -34,7 +34,9 @@ export async function load({ params }: LoadParams) {
 	}
 
 	const parsedMatter = matter(fileContent); //メタデータと本文を分離してdata, contentに格納
-	const htmlContent = markdownToHtml(parsedMatter.content);
+	const htmlContent = markdownToHtml(parsedMatter.content, {
+		embedOrigin: 'https://embed.zenn.studio',
+	});
 	// const toc = parseToc(htmlContent);
 	// console.log('tocデバッグ', toc);
 	const metadata = parsedMatter.data;

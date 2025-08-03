@@ -15,12 +15,4 @@
 	<div class="flex-1 markdown-body">
 		{@render children()}
 	</div>
-	<div class="mt-4">
-		<Button class="mt-2" href="/articles">記事一覧に戻る</Button>
-	</div>
-	<div class="mt-16">
-		<p>コメント欄</p>
-		<!-- <div class="zenn-comment" data-id="zenn-embed-comment"></div> -->
-		<Comment />
-	</div>
 </div>

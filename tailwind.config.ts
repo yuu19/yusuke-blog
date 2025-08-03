@@ -2,6 +2,10 @@ import { fontFamily } from 'tailwindcss/defaultTheme';
 import type { Config } from 'tailwindcss';
 
 const config: Config = {
+	plugins: [
+		/* eslint @typescript-eslint/no-require-imports: off */
+		require('@tailwindcss/typography'),
+	],
 	darkMode: ['class'],
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 	safelist: ['dark'],
