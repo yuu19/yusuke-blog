@@ -171,7 +171,7 @@
         <article class="min-w-0">
           <Card class="mb-8 shadow-lg border-0 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm">
             <CardContent class="p-0">
-              <div class="markdown-body p-8 md:p-12">
+              <div class="znc markdown-body p-8 md:p-12">
                 {#if isLoading}
                   <div class="flex items-center justify-center py-12">
                     <div class="flex items-center gap-3 text-gray-500">
