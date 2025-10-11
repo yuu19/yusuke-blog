@@ -6,6 +6,7 @@ import { format } from 'date-fns';
 // import markdownItMermaid from '@markslides/markdown-it-mermaid';
 // import markdownToHtml  from 'zenn-markdown-html';
 import lib from 'zenn-markdown-html';
+import { getArticles } from '$lib/getArticles';
 // import parseToc from 'zenn-markdown-html/lib/utils';
 const markdownToHtml = lib.default ? lib.default : lib;
 const readFile = promisify(fs.readFile);
@@ -18,6 +19,11 @@ interface LoadParams {
 		articleId: string; // 例えば 'slug' パラメータを期待する場合
 	};
 }
+
+export const entries = () =>
+	getArticles()
+		.filter(({ metadata }) => metadata.blog_published)
+		.map(({ slug }) => ({ articleId: slug }));
 
 export async function load({ params }: LoadParams) {
 	const { articleId } = params;
