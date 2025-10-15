@@ -2,8 +2,7 @@ name: Deploy Worker
 
 on:
   push:
-    branches:
-      - main          # ← main への push は Staging に自動デプロイ
+    branches: [ main, master ]
   workflow_dispatch:   # ← 手動で Production へ昇格（同一コミット）
     inputs:
       sha:
