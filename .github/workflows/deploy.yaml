@@ -45,7 +45,7 @@ jobs:
       - name: Build (no sitemap in staging)
         # ※ package.json の "postbuild" に sitemap 生成を入れているなら、
         #    staging では走らせたくないので、明示的に build のみ実行
-        run: pnpm --silent svelte-kit build
+        run: pnpm --silent run build
 
       - name: Deploy to staging
         uses: cloudflare/wrangler-action@v3
@@ -88,7 +88,7 @@ jobs:
         env:
           # 本番のみカノニカルURLを渡す（svelte-sitemap / Pagefind 用）
           PUBLIC_BASE_URL: https://tech-yusuke.com
-        run: pnpm build
+        run: pnpm run build
         # ※ "postbuild": "pagefind --site .svelte-kit/cloudflare && npx svelte-sitemap --domain $PUBLIC_BASE_URL --out-dir ./.svelte-kit/cloudflare"
         #    のような postbuild が package.json にある前提
 
