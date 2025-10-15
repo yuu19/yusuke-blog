@@ -74,9 +74,9 @@
 		</div>
 	</header>
 
-	<div class="flex-grow px-4 py-6">
+	<main class="flex-grow px-4 py-6" data-pagefind-body>
 		{@render children()}
-	</div>
+	</main>
 
 	<footer class="bg-black py-2 text-center text-white">
 		<p>
