@@ -2,8 +2,11 @@
 	import '../app.css';
 	import NProgress from 'nprogress';
 	import "nprogress/nprogress.css";
-
+    import { Search } from 'lucide-svelte';
 	import { afterNavigate, beforeNavigate } from '$app/navigation';
+
+	import SearchDialog from "$lib/SearchDialog/SearchDialog.svelte";
+    import SearchBar from "$lib/SearchDialog/SearchBar.svelte";
 	
 	beforeNavigate(() => {
 		NProgress.start();
@@ -41,6 +44,17 @@
 			<a href="/" class="text-xl font-bold text-white"> Tech Blog </a>
 		</h1> -->
 		<nav class="flex gap-4">
+		    <div>
+              <SearchDialog>
+            <div class={`invisible hidden md:visible md:block`}>
+              <SearchBar />
+            </div>
+            <div class="md:invisible md:hidden">
+              <Search class="h-5 w-5" />
+            </div>
+          </SearchDialog>
+            </div>
+
 			<a href="/" class="text-white hover:text-gray-400">home</a>
 			<a href="/profiles" class="text-white hover:text-gray-400">Profile</a>
 			<a href="/articles" class="text-white hover:text-gray-400">Articles</a>
