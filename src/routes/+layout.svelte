@@ -39,27 +39,39 @@
 </svelte:head>
 
 <div class="flex min-h-screen flex-col">
-	<header class="flex items-center justify-end bg-black px-6 py-3">
-		<!-- <h1 class="text-xl font-bold text-white">
-			<a href="/" class="text-xl font-bold text-white"> Tech Blog </a>
-		</h1> -->
-		<nav class="flex gap-4">
-		    <div>
-              <SearchDialog>
-            <div class={`invisible hidden md:visible md:block`}>
-              <SearchBar />
-            </div>
-            <div class="md:invisible md:hidden">
-              <Search class="h-5 w-5" />
-            </div>
-          </SearchDialog>
-            </div>
+	<header class="border-b border-white/10 bg-black/80 px-4 py-4 backdrop-blur">
+		<div class="mx-auto flex w-full max-w-5xl flex-wrap items-center gap-x-6 gap-y-3 md:flex-nowrap">
+			<a
+				href="/"
+				class="order-1 text-lg font-semibold tracking-tight text-white transition-colors hover:text-indigo-300"
+			>
+				Yusuke Blog
+			</a>
 
-			<a href="/" class="text-white hover:text-gray-400">home</a>
-			<a href="/profiles" class="text-white hover:text-gray-400">Profile</a>
-			<a href="/articles" class="text-white hover:text-gray-400">Articles</a>
-			<a href="/form" class="text-white hover:text-gray-400">Form</a>
-		</nav>
+			<nav
+				class="order-3 flex w-full flex-wrap items-center justify-center gap-5 text-sm font-medium text-white/70 transition-colors md:order-2 md:flex-1 md:flex-nowrap"
+			>
+				<a href="/" class="transition-colors hover:text-white">home</a>
+				<a href="/profiles" class="transition-colors hover:text-white">Profile</a>
+				<a href="/articles" class="transition-colors hover:text-white">Articles</a>
+				<a href="/form" class="transition-colors hover:text-white">Form</a>
+			</nav>
+
+			<div class="order-2 flex items-center justify-end md:order-3">
+				<SearchDialog>
+					<div class="hidden md:block">
+						<SearchBar />
+					</div>
+					<button
+						type="button"
+						class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-white transition hover:border-white/40 hover:text-indigo-200 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-indigo-300 md:hidden"
+						aria-label="検索"
+					>
+						<Search class="h-5 w-5" />
+					</button>
+				</SearchDialog>
+			</div>
+		</div>
 	</header>
 
 	<div class="flex-grow px-4 py-6">
