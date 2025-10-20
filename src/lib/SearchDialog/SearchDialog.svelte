@@ -47,7 +47,9 @@
           processResult: (result) => {
             // 何故か &amp; が含まれているので置換する
             // https://github.com/CloudCannon/pagefind/issues/459
-            result.meta.image = result.meta.image.replaceAll("&amp;", "&");
+            if (result.meta?.image) {
+              result.meta.image = result.meta.image.replaceAll("&amp;", "&");
+            }
             return result;
           },
         });

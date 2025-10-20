@@ -6,7 +6,11 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
-    "postbuild": "pagefind --site .svelte-kit/cloudflare && npx svelte-sitemap --domain $PUBLIC_BASE_URL --out-dir ./.svelte-kit/cloudflare",
+    "postbuild": "pagefind --site .svelte-kit/cloudflare && node scripts/update-pagefind-manifest.js && npx svelte-sitemap --domain $PUBLIC_BASE_URL --out-dir ./.svelte-kit/cloudflare",
+    "preview": "vite preview",
+    "test": "npm run test:integration && npm run test:unit",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+
     "preview": "vite preview",
     "test": "npm run test:integration && npm run test:unit",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
