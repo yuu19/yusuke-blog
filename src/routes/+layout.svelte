@@ -2,12 +2,13 @@
 	import '../app.css';
 	import NProgress from 'nprogress';
 	import "nprogress/nprogress.css";
-    import { Search } from 'lucide-svelte';
+  import { Search } from 'lucide-svelte';
 	import { afterNavigate, beforeNavigate } from '$app/navigation';
   import { onMount } from 'svelte';
 
 	import SearchDialog from "$lib/SearchDialog/SearchDialog.svelte";
     import SearchBar from "$lib/SearchDialog/SearchBar.svelte";
+  import PwaInstallPrompt from '$lib/components/PwaInstallPrompt.svelte';
 
 	beforeNavigate(() => {
 		NProgress.start();
@@ -114,4 +115,6 @@
 			> をご覧ください。
 		</p>
 	</footer>
+
+	<PwaInstallPrompt />
 </div>
