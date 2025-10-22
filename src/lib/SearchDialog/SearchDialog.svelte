@@ -50,6 +50,15 @@
             if (result.meta?.image) {
               result.meta.image = result.meta.image.replaceAll("&amp;", "&");
             }
+
+            if (result.url) {
+              const parsed = new URL(result.url, window.location.origin);
+              let pathname = parsed.pathname;
+              pathname = pathname.replace(/\/index\.html$/, "/");
+              pathname = pathname.replace(/\.html$/, "");
+              parsed.pathname = pathname;
+              result.url = `${parsed.pathname}${parsed.search}${parsed.hash}`;
+            }
             return result;
           },
         });
