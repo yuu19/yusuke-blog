@@ -4,10 +4,11 @@
 	import "nprogress/nprogress.css";
     import { Search } from 'lucide-svelte';
 	import { afterNavigate, beforeNavigate } from '$app/navigation';
+  import { onMount } from 'svelte';
 
 	import SearchDialog from "$lib/SearchDialog/SearchDialog.svelte";
     import SearchBar from "$lib/SearchDialog/SearchBar.svelte";
-	
+
 	beforeNavigate(() => {
 		NProgress.start();
 	});
@@ -19,7 +20,28 @@
 	NProgress.configure({
 		showSpinner: false
 	});
-	
+
+	onMount(() => {
+		if ('serviceWorker' in navigator) {
+			const register = async () => {
+				try {
+					await navigator.serviceWorker.register('/service-worker.js');
+				} catch (error) {
+					console.error('Service worker registration failed', error);
+				}
+			};
+
+			if (import.meta.env.PROD) {
+				register();
+			} else {
+				// During development it is safer to unregister to avoid stale caches
+				navigator.serviceWorker.getRegistration().then((registration) => {
+					registration?.unregister();
+				});
+			}
+		}
+	});
+
 	let { children } = $props();
 
 </script>
@@ -36,6 +58,8 @@
 
 		gtag('config', 'G-4LE8SDBWB5');
 	</script>
+	<link rel="manifest" href="/manifest.webmanifest" />
+	<meta name="theme-color" content="#4f46e5" />
 </svelte:head>
 
 <div class="flex min-h-screen flex-col">

@@ -4,6 +4,7 @@ import path from 'path';
 
 export default defineConfig({
 	plugins: [sveltekit()],
+	ssr: { noExternal: ['@pagefind/default-ui'] },
 	resolve: {
     alias: {
       $articles: path.resolve('./articles')
