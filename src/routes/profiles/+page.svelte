@@ -1,5 +1,6 @@
 <script>
   import { Github, ExternalLink } from 'lucide-svelte';
+  import { githubConfig } from '$lib/github.config';
 </script>
 
 <svelte:head>
@@ -25,7 +26,68 @@
     </header>
 
     <main class="space-y-16">
-      <!-- History Section -->
+
+            <!-- Contributions Link Section -->
+      <section>
+        <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Contributions</h2>
+        <div class="bg-white rounded-2xl shadow-lg p-8 text-center">
+          <a
+            href="/contributions"
+            class="inline-flex items-center justify-center px-6 py-3 rounded-full bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-colors"
+          >
+            Contributionsを見る
+          </a>
+        </div>
+      </section>
+      <!-- SNS Section -->
+      <section>
+        <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">SNS & Links</h2>
+        <div class="grid md:grid-cols-2 gap-6">
+          <a 
+            href="https://zenn.dev/yuu24" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="group bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+          >
+            <div class="flex items-center justify-between mb-4">
+              <div class="flex items-center space-x-3">
+                <div class="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center text-white font-bold text-lg">
+                  Z
+                </div>
+                <div>
+                  <h3 class="text-xl font-bold text-gray-900">Zenn</h3>
+                  <p class="text-gray-600 text-sm">技術記事を投稿</p>
+                </div>
+              </div>
+              <ExternalLink class="w-5 h-5 text-gray-400 group-hover:text-blue-500 transition-colors" />
+            </div>
+            <p class="text-blue-600 font-medium break-all">zenn.dev/yuu24</p>
+          </a>
+
+          <a 
+            href={`https://github.com/${githubConfig.username}`} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="group bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+          >
+            <div class="flex items-center justify-between mb-4">
+              <div class="flex items-center space-x-3">
+                <div class="w-12 h-12 bg-gray-900 rounded-lg flex items-center justify-center">
+                  <Github class="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h3 class="text-xl font-bold text-gray-900">GitHub</h3>
+                  <p class="text-gray-600 text-sm">コードを公開</p>
+                </div>
+              </div>
+              <ExternalLink class="w-5 h-5 text-gray-400 group-hover:text-gray-900 transition-colors" />
+            </div>
+            <p class="text-gray-700 font-medium break-all">github.com/{githubConfig.username}</p>
+          </a>
+        </div>
+      </section>
+
+            <!-- History Section -->
       <section>
         <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">History</h2>
         <div class="bg-white rounded-2xl shadow-lg p-8">
@@ -69,53 +131,6 @@
         </div>
       </section>
 
-      <!-- SNS Section -->
-      <section>
-        <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">SNS & Links</h2>
-        <div class="grid md:grid-cols-2 gap-6">
-          <a 
-            href="https://zenn.dev/yuu24" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            class="group bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
-          >
-            <div class="flex items-center justify-between mb-4">
-              <div class="flex items-center space-x-3">
-                <div class="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center text-white font-bold text-lg">
-                  Z
-                </div>
-                <div>
-                  <h3 class="text-xl font-bold text-gray-900">Zenn</h3>
-                  <p class="text-gray-600 text-sm">技術記事を投稿</p>
-                </div>
-              </div>
-              <ExternalLink class="w-5 h-5 text-gray-400 group-hover:text-blue-500 transition-colors" />
-            </div>
-            <p class="text-blue-600 font-medium break-all">zenn.dev/yuu24</p>
-          </a>
-
-          <a 
-            href="https://github.com/yuu19" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            class="group bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
-          >
-            <div class="flex items-center justify-between mb-4">
-              <div class="flex items-center space-x-3">
-                <div class="w-12 h-12 bg-gray-900 rounded-lg flex items-center justify-center">
-                  <Github class="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <h3 class="text-xl font-bold text-gray-900">GitHub</h3>
-                  <p class="text-gray-600 text-sm">コードを公開</p>
-                </div>
-              </div>
-              <ExternalLink class="w-5 h-5 text-gray-400 group-hover:text-gray-900 transition-colors" />
-            </div>
-            <p class="text-gray-700 font-medium break-all">github.com/yuu19</p>
-          </a>
-        </div>
-      </section>
     </main>
 
     <!-- Footer -->

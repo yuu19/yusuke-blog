@@ -7,6 +7,7 @@ blog_published: True
 published: False
 ---
 
+
 Codexは従来、標準入出力を経由したMCPサーバとの通信のみをサポートしていました。先日に公開された[v0.46.0のリリース](https://github.com/openai/codex/releases/tag/rust-v0.46.0)で、実験的ながらstreamable HTTP経由のremote MCPサーバへの接続のサポートを開始しました。
 
 
