@@ -19,7 +19,9 @@ export interface ArticleInfo {
 
 export function getArticles(): ArticleInfo[] {
 	const articlesDirectory = path.resolve(process.cwd(), 'articles');
-	const filenames = fs.readdirSync(articlesDirectory);
+	const filenames = fs
+		.readdirSync(articlesDirectory)
+		.filter((filename) => filename.toLowerCase().endsWith('.md'));
 
 	const articles: ArticleInfo[] = filenames.map((filename: string) => {
 		const slug = filename.replace(/\.[^.]+$/, '');

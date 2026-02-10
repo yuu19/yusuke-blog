@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "vite dev",
+    "prebuild": "svelte-kit sync",
     "build": "vite build",
     "postbuild": "pagefind --site .svelte-kit/cloudflare && node scripts/update-pagefind-manifest.js && npx svelte-sitemap --domain $PUBLIC_BASE_URL --out-dir ./.svelte-kit/cloudflare",
     "preview": "vite preview",

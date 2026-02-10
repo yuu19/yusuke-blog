@@ -6,15 +6,17 @@
 
 	let { article }: { article: ArticleInfo } = $props();
 
-	const topics = article.metadata.topics ?? [];
-	const description = article.metadata.description ?? '';
-	const publicationDate = article.metadata.date
-		? new Date(article.metadata.date).toLocaleDateString('ja-JP', {
-			year: 'numeric',
-			month: 'short',
-			day: 'numeric'
-		})
-		: '';
+	let topics = $derived(article.metadata.topics ?? []);
+	let description = $derived(article.metadata.description ?? '');
+	let publicationDate = $derived(
+		article.metadata.date
+			? new Date(article.metadata.date).toLocaleDateString('ja-JP', {
+					year: 'numeric',
+					month: 'short',
+					day: 'numeric'
+				})
+			: ''
+	);
 </script>
 
 <a
@@ -43,7 +45,7 @@
 			</p>
 			<div class="flex flex-wrap gap-2">
 				{#if topics.length > 0}
-					{#each topics as topic}
+					{#each topics as topic (topic)}
 						<Tag {topic} />
 					{/each}
 				{:else}

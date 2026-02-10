@@ -47,6 +47,21 @@ articlesフォルダにmarkdown形式の記事を管理する。
 | blog_published | True                                                                                                      | ブログとして公開されるかどうかのフラグ。Trueの場合、ブログ記事として扱われます。         |
 | published      | False                                                                                                     | zennに記事を公開されるかどうかのフラグ。Trueの場合、Zennに記事が公開されます(現在未対応) |
 
+## 本の管理
+
+`books` フォルダ配下に `books/<book-slug>/config.yaml` とチャプター markdown を配置して管理する。
+
+| ファイル                  | 説明                                                                                             |
+| ------------------------- | ------------------------------------------------------------------------------------------------ |
+| books/\<slug\>/config.yaml | 本のメタデータ（title, summary, topics, published, price, chapters）を管理する設定ファイル      |
+| books/\<slug\>/*.md        | 各チャプター。frontmatter の `title` と `free`（有料本での無料公開章フラグ）を設定可能          |
+
+チャプターの表示順は次の優先順位で決まる。
+
+1. `config.yaml` の `chapters` 配列順
+2. `1.introduction.md` のような数値プレフィックス順
+3. それ以外はファイル名順
+
 ## 使用技術
 
 | カテゴリー     | 技術・ツール                |

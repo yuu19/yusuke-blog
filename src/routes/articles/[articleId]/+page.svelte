@@ -26,14 +26,14 @@
   });
 
   // 読了時間を計算する関数（仮の実装）
-  const calculateReadingTime = (content) => {
+  const calculateReadingTime = (content: string) => {
     const wordsPerMinute = 200;
     const textLength = content.replace(/<[^>]*>/g, '').length;
     const words = textLength / 5; // 日本語の場合の概算
     return Math.ceil(words / wordsPerMinute);
   };
 
-  const readingTime = calculateReadingTime(data.htmlContent);
+  let readingTime = $derived(calculateReadingTime(data.htmlContent));
 
   // 読了進捗の更新
   if (typeof window !== 'undefined') {
