@@ -6,7 +6,7 @@ on:
   workflow_dispatch:   # ← 手動で Production へ昇格（同一コミット）
     inputs:
       sha:
-        description: 'Commit SHA to promote to production'
+        description: 'Commit SHA (full or short) to promote to production'
         required: true
         type: string
 
@@ -69,9 +69,41 @@ jobs:
       group: deploy-production
       cancel-in-progress: true
     steps:
+      - name: Resolve target SHA
+        id: resolve_sha
+        env:
+          INPUT_REF: ${{ inputs.sha }}
+          REPOSITORY: ${{ github.repository }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          api_url="https://api.github.com/repos/${REPOSITORY}/commits/${INPUT_REF}"
+          http_status="$(curl -sS -o /tmp/commit.json -w "%{http_code}" \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            "${api_url}")"
+
+          if [ "${http_status}" != "200" ]; then
+            echo "::error::Could not resolve ref '${INPUT_REF}' (HTTP ${http_status}). Please provide a valid commit SHA/ref."
+            cat /tmp/commit.json
+            exit 1
+          fi
+
+          resolved_sha="$(python3 -c "import json, pathlib; print(json.loads(pathlib.Path('/tmp/commit.json').read_text()).get('sha', ''))")"
+          if [ -z "${resolved_sha}" ]; then
+            echo "::error::Failed to parse commit SHA from GitHub API response."
+            cat /tmp/commit.json
+            exit 1
+          fi
+
+          echo "Resolved commit: ${resolved_sha}"
+          echo "sha=${resolved_sha}" >> "${GITHUB_OUTPUT}"
+
       - uses: actions/checkout@v4
         with:
-          ref: ${{ inputs.sha }}   # ← Staging と同一コミットを指定
+          ref: ${{ steps.resolve_sha.outputs.sha }}   # ← Staging と同一コミットを指定
+          fetch-depth: 0
+          fetch-tags: true
 
       - uses: pnpm/action-setup@v4
         with:
