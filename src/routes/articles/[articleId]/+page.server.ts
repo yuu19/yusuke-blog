@@ -4,7 +4,7 @@ import path from 'path';
 import { promisify } from 'util';
 import matter from 'gray-matter';
 import { format } from 'date-fns';
-import { PUBLIC_BASE_URL } from '$env/static/public';
+import { env } from '$env/dynamic/public';
 // import markdownItMermaid from '@markslides/markdown-it-mermaid';
 import { getArticles } from '$lib/getArticles';
 import { getZennMarkdownToHtml } from '$lib/server/zennMarkdown';
@@ -71,7 +71,7 @@ export async function load({ params }: LoadParams) {
 		metadata.emoji = '📝';
 	}
 
-	const baseUrl = PUBLIC_BASE_URL?.replace(/\/$/, '') ?? '';
+	const baseUrl = env.PUBLIC_BASE_URL?.replace(/\/$/, '') ?? '';
 	const articlePath = `/articles/${slug}`;
 	const ogImagePath = `/og/articles/${slug}.png`;
 	const articleUrl = baseUrl ? `${baseUrl}${articlePath}` : articlePath;
