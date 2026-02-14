@@ -1,6 +1,7 @@
 ---
 title: 'full-stack-fastapi-templateのコードリーディング'
 description: 'full-stack-fastapi-templateはFastAPI公式から提供されているFastAPI+Reactによるサンプルアプリです。バックエンド部分を中心にコードリーディングの記録を残します(随時更新)'
+emoji: '⚙️'
 date: 2024-08-19
 topics: ["svelte"]
 blog_published: True

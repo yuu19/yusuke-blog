@@ -1,6 +1,7 @@
 ---
 title: 'SQLAlchemyで非同期処理を扱う際の注意点'
 description: 'SQLAlchemyを使った非同期処理には、様々な注意点があります。この記事ではどのような点に気を付けて実装をするべきかを紹介します。'
+emoji: '🗄️'
 date: 2024-08-19
 topics: ["python", "sqlalchmy", "async"]
 blog_published: True

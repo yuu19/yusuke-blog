@@ -1,6 +1,7 @@
 ---
 title: 'Codexがremote MCPの使用を実験的にサポート'
 description: 'Codex v0.46.0で追加されたremote MCPサポートの概要と設定手順をまとめます。'
+emoji: '🤖'
 date: 2025-10-11
 topics: ["codex", "mcp"]
 blog_published: True

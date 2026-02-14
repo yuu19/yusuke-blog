@@ -1,6 +1,7 @@
 ---
 title: 'playwrightでのE2Eテスト'
 description: 'playwrightを使用したE2Eテストについて紹介します'
+emoji: '🎭'
 date: 2025-08-03
 topics: ["playwright", "test"]
 blog_published: True

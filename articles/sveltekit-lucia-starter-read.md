@@ -1,6 +1,7 @@
 ---
 title: 'sveltekit-lucia-starterのコードを読む'
 description: ''
+emoji: '📚'
 date: 2024-08-19
 topics: ["sqlalchmy"]
 blog_published: False

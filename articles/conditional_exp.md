@@ -1,6 +1,7 @@
 ---
 title: '条件付き期待値の性質'
 description: 'Katexがブログ上で使えることの確認も兼ねて、学生時代に解いた演習問題を記載する'
+emoji: '📐'
 date: 2024-08-19
 topics: ["statistics"]
 blog_published: False

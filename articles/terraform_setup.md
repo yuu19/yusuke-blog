@@ -1,6 +1,7 @@
 ---
 title: 'Terraformの開発環境を整える'
 description: 'Terraformの開発環境にLinterやFormatterを導入し、快適に開発できるようにしました'
+emoji: '🏗️'
 date: 2025-03-10
 topics: ["terraform"]
 blog_published: True

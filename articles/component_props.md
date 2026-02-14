@@ -1,6 +1,7 @@
 ---
 title: 'Svelteでのコンポーネント間の変数の受け渡し'
 description: '記事1のdescription情報がここには入ります'
+emoji: '🧩'
 date: 2024-08-19
 topics: ["svelte"]
 blog_published: False

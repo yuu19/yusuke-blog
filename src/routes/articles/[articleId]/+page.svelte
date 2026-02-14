@@ -34,6 +34,7 @@
   };
 
   let readingTime = $derived(calculateReadingTime(data.htmlContent));
+  let ogTitle = $derived(`${data.metadata.emoji ? `${data.metadata.emoji} ` : ''}${data.metadata.title}`);
 
   // 読了進捗の更新
   if (typeof window !== 'undefined') {
@@ -99,6 +100,24 @@
 <svelte:head>
   <title>{data.metadata.title}</title>
   <meta name="description" content={data.metadata.description} />
+  <link rel="canonical" href={data.articleUrl} />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content={ogTitle} />
+  <meta property="og:description" content={data.metadata.description} />
+  <meta property="og:url" content={data.articleUrl} />
+  <meta property="og:image" content={data.ogImageUrl} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content={ogTitle} />
+  <meta property="article:published_time" content={data.metadata.date} />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={ogTitle} />
+  <meta name="twitter:description" content={data.metadata.description} />
+  <meta name="twitter:image" content={data.ogImageUrl} />
+  <meta name="twitter:image:alt" content={ogTitle} />
+
   <script src="https://embed.zenn.studio/js/listen-embed-event.js"></script>
 </svelte:head>
 

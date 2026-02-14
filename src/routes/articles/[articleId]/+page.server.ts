@@ -4,6 +4,7 @@ import path from 'path';
 import { promisify } from 'util';
 import matter from 'gray-matter';
 import { format } from 'date-fns';
+import { PUBLIC_BASE_URL } from '$env/static/public';
 // import markdownItMermaid from '@markslides/markdown-it-mermaid';
 import { getArticles } from '$lib/getArticles';
 import { getZennMarkdownToHtml } from '$lib/server/zennMarkdown';
@@ -65,10 +66,24 @@ export async function load({ params }: LoadParams) {
 	if (metadata.date instanceof Date) {
 		metadata.date = format(metadata.date, 'yyyy-MM-dd');
 	}
+
+	if (!metadata.emoji) {
+		metadata.emoji = '📝';
+	}
+
+	const baseUrl = PUBLIC_BASE_URL?.replace(/\/$/, '') ?? '';
+	const articlePath = `/articles/${slug}`;
+	const ogImagePath = `/og/articles/${slug}.png`;
+	const articleUrl = baseUrl ? `${baseUrl}${articlePath}` : articlePath;
+	const ogImageUrl = baseUrl ? `${baseUrl}${ogImagePath}` : ogImagePath;
+
 	return {
 		slug,
 		params,
 		htmlContent,
-		metadata: parsedMatter.data
+		metadata,
+		articleUrl,
+		ogImagePath,
+		ogImageUrl
 	};
 }
