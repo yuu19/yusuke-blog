@@ -3,11 +3,3 @@ summary: "destination charge固定で、Cloudflare Workers 2本構成のStripe C
 topics: ["stripe", "stripe-connect", "hono", "sveltekit", "cloudflare"]
 published: true
 price: 500
-chapters:
-  - introduction
-  - setup
-  - db-auth
-  - api-connect
-  - web-integration
-  - webhook-tests
-  - deploy-checklist
