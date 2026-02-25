@@ -11,9 +11,70 @@
 
   let showPrompt = $state(false);
   let deferredPrompt: BeforeInstallPromptEvent | null = null;
+  const INSTALLED_STORAGE_KEY = 'pwa_install_prompt_installed';
+  const DISMISSED_AT_STORAGE_KEY = 'pwa_install_prompt_dismissed_at';
+  const DISMISS_COOLDOWN_MS = 30 * 24 * 60 * 60 * 1000;
+
+  function getStorageValue(key: string): string | null {
+    try {
+      return window.localStorage.getItem(key);
+    } catch (error) {
+      console.warn(`[PWA] Failed to read localStorage key: ${key}`, error);
+      return null;
+    }
+  }
+
+  function setStorageValue(key: string, value: string) {
+    try {
+      window.localStorage.setItem(key, value);
+    } catch (error) {
+      console.warn(`[PWA] Failed to write localStorage key: ${key}`, error);
+    }
+  }
+
+  function hasInstalledFlag() {
+    return getStorageValue(INSTALLED_STORAGE_KEY) === '1';
+  }
+
+  function markInstalled() {
+    setStorageValue(INSTALLED_STORAGE_KEY, '1');
+  }
+
+  function markDismissed() {
+    setStorageValue(DISMISSED_AT_STORAGE_KEY, String(Date.now()));
+  }
+
+  function isWithinDismissCooldown() {
+    const dismissedAtRaw = getStorageValue(DISMISSED_AT_STORAGE_KEY);
+    if (!dismissedAtRaw) return false;
+
+    const dismissedAt = Number.parseInt(dismissedAtRaw, 10);
+    if (!Number.isFinite(dismissedAt) || dismissedAt <= 0) {
+      return false;
+    }
+
+    return Date.now() - dismissedAt < DISMISS_COOLDOWN_MS;
+  }
+
+  function isStandaloneContext() {
+    const isStandaloneByDisplayMode = window.matchMedia('(display-mode: standalone)').matches;
+    const iosNavigator = navigator as Navigator & { standalone?: boolean };
+    return isStandaloneByDisplayMode || iosNavigator.standalone === true;
+  }
+
+  function isPromptSuppressed() {
+    return hasInstalledFlag() || isWithinDismissCooldown();
+  }
 
   function handleBeforeInstallPrompt(event: BeforeInstallPromptEvent) {
     event.preventDefault();
+
+    if (isPromptSuppressed()) {
+      showPrompt = false;
+      deferredPrompt = null;
+      return;
+    }
+
     deferredPrompt = event;
     showPrompt = true;
   }
@@ -26,6 +87,10 @@
       const choiceResult = await deferredPrompt.userChoice;
 
       if (choiceResult.outcome === 'accepted') {
+        markInstalled();
+        showPrompt = false;
+      } else {
+        markDismissed();
         showPrompt = false;
       }
     } finally {
@@ -34,13 +99,21 @@
   }
 
   function dismissPrompt() {
+    markDismissed();
     showPrompt = false;
     deferredPrompt = null;
   }
 
   onMount(() => {
-    if (!('serviceWorker' in navigator)) {
-      return () => undefined;
+    if (isStandaloneContext()) {
+      markInstalled();
+      showPrompt = false;
+      deferredPrompt = null;
+    }
+
+    if (isPromptSuppressed()) {
+      showPrompt = false;
+      deferredPrompt = null;
     }
 
     const beforeInstallListener = (event: Event) => {
@@ -48,6 +121,7 @@
     };
 
     const installedListener = () => {
+      markInstalled();
       showPrompt = false;
       deferredPrompt = null;
     };
