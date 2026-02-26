@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { ArrowRight, Calendar } from 'lucide-svelte';
+	import { Calendar } from 'lucide-svelte';
 	import * as Card from '$lib/components/ui/card';
 	import Tag from '$lib/components/Tag.svelte';
 	import type { ArticleInfo } from '$lib/getArticles';
@@ -55,11 +55,5 @@
 				{/if}
 			</div>
 		</Card.Content>
-		<Card.Footer class="mt-4 border-0 pt-0">
-			<span class="inline-flex items-center gap-2 text-sm font-medium text-indigo-600 transition group-hover:gap-3 dark:text-indigo-300">
-				続きを読む
-				<ArrowRight class="h-4 w-4" aria-hidden="true" />
-			</span>
-		</Card.Footer>
 	</Card.Root>
 </a>

@@ -5,8 +5,6 @@
   import { createTableOfContents } from '@melt-ui/svelte';
   import { pushState } from '$app/navigation';
   import { Calendar, Clock, BookOpen } from 'lucide-svelte';
-  import 'github-markdown-css/github-markdown-light.css';
-  import 'zenn-content-css';
   import { onMount } from 'svelte';
   import { Button } from '$lib/components/ui/button/index.js';
   import { Card, CardContent } from '$lib/components/ui/card';
@@ -183,14 +181,14 @@
 
   <!-- Main Content -->
   <main class="relative">
-    <div id="toc-builder-preview" class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+    <div id="toc-builder-preview" class="mx-auto max-w-7xl px-0 py-12 sm:px-6 lg:px-8 lg:py-16">
       <div class="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1fr),320px] lg:gap-12 xl:grid-cols-[minmax(0,1fr),360px]">
         
         <!-- Article Content -->
         <article class="min-w-0">
           <Card class="mb-8 overflow-hidden rounded-3xl border border-slate-200/70 bg-white/90 shadow-xl backdrop-blur-sm dark:border-gray-700/60 dark:bg-gray-900/70">
             <CardContent class="p-0">
-              <div class="znc markdown-body space-y-6 p-6 text-base leading-relaxed sm:p-8 lg:p-12">
+              <div class="znc markdown-body space-y-6 p-4 text-base leading-relaxed sm:p-8 lg:p-12">
                 {#if isLoading}
                   <div class="flex items-center justify-center py-12">
                     <div class="flex items-center gap-3 text-gray-500">
@@ -261,22 +259,22 @@
 
     <!-- Article Actions -->
     <div class="flex justify-center mb-12">
-      <div class="flex items-center gap-4">
+      <div class="flex w-full flex-col items-stretch gap-3 sm:w-auto sm:flex-row sm:items-center sm:gap-4">
         <Button 
           variant="outline" 
           href="/articles"
-          class="flex items-center gap-2"
+          class="flex items-center justify-center gap-2"
         >
           <ArrowLeft class="w-4 h-4" />
           記事一覧
         </Button>
         
-        <Separator orientation="vertical" class="h-6" />
+        <Separator orientation="vertical" class="hidden h-6 sm:block" />
         
         <Button
           variant="outline"
           onclick={shareArticle}
-          class="flex items-center gap-2"
+          class="flex items-center justify-center gap-2"
         >
           <Share2 class="w-4 h-4" />
           この記事をシェア

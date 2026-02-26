@@ -66,6 +66,9 @@ importers:
         specifier: ^0.1.158
         version: 0.1.158(@types/markdown-it@14.1.2)
     devDependencies:
+      '@lucide/svelte':
+        specifier: ^0.482.0
+        version: 0.482.0(svelte@5.46.1)
       '@melt-ui/pp':
         specifier: ^0.3.2
         version: 0.3.2(@melt-ui/svelte@0.86.6(svelte@5.46.1))(svelte@5.46.1)
@@ -773,6 +776,11 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.9':
     resolution: {integrity: sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==}
+
+  '@lucide/svelte@0.482.0':
+    resolution: {integrity: sha512-n2ycHU9cNcleRDwwpEHBJ6pYzVhHIaL3a+9dQa8kns9hB2g05bY+v2p2KP8v0pZwtNhYTHk/F2o2uZ1bVtQGhw==}
+    peerDependencies:
+      svelte: ^5
 
   '@markslides/markdown-it-mermaid@0.3.6':
     resolution: {integrity: sha512-up1i50M7GQXH8j+fNGhiBqfL8vvPUxx1hAX3bYxSS3agi+ydErqxcv8mhstOaXmpOAi4R4+L97S3u6yxsKNoKw==}
@@ -3690,6 +3698,10 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
+
+  '@lucide/svelte@0.482.0(svelte@5.46.1)':
+    dependencies:
+      svelte: 5.46.1
 
   '@markslides/markdown-it-mermaid@0.3.6':
     dependencies:

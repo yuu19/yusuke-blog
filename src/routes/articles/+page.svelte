@@ -1,5 +1,10 @@
 <script lang="ts">
+	import { replaceState } from '$app/navigation';
+	import { page } from '$app/state';
 	import ArticleCard from '$lib/components/ArticleCard.svelte';
+	import ArticlePagination from '$lib/components/ArticlePagination.svelte';
+	import { ARTICLES_PER_PAGE } from '$lib/constants';
+	import { fly } from 'svelte/transition';
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
@@ -77,11 +82,75 @@
 	let visibleArticleCount = $derived(filteredArticles.length);
 	let visibleBookCount = $derived(filteredBooks.length);
 	let visibleTotalCount = $derived(visibleArticleCount + visibleBookCount);
+	let totalArticlePages = $derived(Math.max(1, Math.ceil(visibleArticleCount / ARTICLES_PER_PAGE)));
+
+	const normalizePage = (value: string | null) => {
+		const parsed = Number.parseInt(value ?? '1', 10);
+		return Number.isFinite(parsed) && parsed > 0 ? parsed : 1;
+	};
+
+	const clampPage = (nextPage: number, maxPage: number) => {
+		return Math.min(Math.max(1, nextPage), Math.max(1, maxPage));
+	};
+
+	let currentPage = $state(1);
+	let currentPageClamped = $derived(clampPage(currentPage, totalArticlePages));
+	let articleListAnimationKey = $derived.by(
+		() =>
+			`articles:${currentPageClamped}:${searchQuery.trim().toLowerCase()}:${activeTopic}:${sortOrder}`
+	);
+	let previousSearchQuery = $state('');
+	let previousActiveTopic = $state('すべて');
+	let previousSortOrder = $state<'newest' | 'oldest'>('newest');
+
+	let pagedArticles = $derived.by(() => {
+		const start = (currentPageClamped - 1) * ARTICLES_PER_PAGE;
+		return filteredArticles.slice(start, start + ARTICLES_PER_PAGE);
+	});
+
+	let visibleArticleStart = $derived(
+		visibleArticleCount === 0 ? 0 : (currentPageClamped - 1) * ARTICLES_PER_PAGE + 1
+	);
+	let visibleArticleEnd = $derived(Math.min(currentPageClamped * ARTICLES_PER_PAGE, visibleArticleCount));
+
+	$effect(() => {
+		const safePage = clampPage(normalizePage(page.url.searchParams.get('page')), totalArticlePages);
+		currentPage = safePage;
+	});
+
+	$effect(() => {
+		if (
+			searchQuery !== previousSearchQuery ||
+			activeTopic !== previousActiveTopic ||
+			sortOrder !== previousSortOrder
+		) {
+			previousSearchQuery = searchQuery;
+			previousActiveTopic = activeTopic;
+			previousSortOrder = sortOrder;
+			if (currentPage !== 1) {
+				currentPage = 1;
+			}
+		}
+	});
+
+	$effect(() => {
+		const nextUrl = new URL(page.url);
+		if (currentPageClamped <= 1) {
+			nextUrl.searchParams.delete('page');
+		} else {
+			nextUrl.searchParams.set('page', String(currentPageClamped));
+		}
+
+		if (nextUrl.toString() !== page.url.toString()) {
+			replaceState(nextUrl, page.state);
+		}
+	});
 
 	function resetFilters() {
 		searchQuery = '';
 		activeTopic = 'すべて';
 		sortOrder = 'newest';
+		currentPage = 1;
 	}
 </script>
 
@@ -94,7 +163,7 @@
 </svelte:head>
 
 <section class="bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-slate-950 dark:via-slate-900 dark:to-indigo-950">
-	<div class="mx-auto flex min-h-screen max-w-7xl flex-col gap-8 px-4 py-12 sm:px-6 lg:px-8">
+	<div class="mx-auto flex min-h-screen max-w-7xl flex-col gap-6 px-0 py-8 sm:gap-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12">
 		<header class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
 			<div>
 				<p class="text-sm font-semibold uppercase tracking-wide text-indigo-600 dark:text-indigo-400">
@@ -108,9 +177,9 @@
 				</p>
 			</div>
 			{#if totalArticleCount + totalBookCount > 0}
-				<div class="flex items-center gap-3">
+				<div class="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-center">
 					<select
-						class="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
+						class="w-full rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 sm:w-auto"
 						bind:value={sortOrder}
 						aria-label="記事の並び順"
 					>
@@ -120,7 +189,7 @@
 					<button
 						type="button"
 						onclick={resetFilters}
-						class="rounded-full border border-transparent bg-slate-200 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-300 dark:bg-slate-700 dark:text-slate-100 dark:hover:bg-slate-600"
+						class="w-full rounded-full border border-transparent bg-slate-200 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-300 dark:bg-slate-700 dark:text-slate-100 dark:hover:bg-slate-600 sm:w-auto"
 						aria-label="フィルターをリセット"
 					>
 						リセット
@@ -132,13 +201,13 @@
 		{#if totalArticleCount + totalBookCount > 0}
 			<div class="flex flex-col gap-6">
 				<div class="flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white/70 p-4 shadow-sm backdrop-blur-sm dark:border-slate-700 dark:bg-slate-900/60">
-					<label class="flex items-center gap-3 rounded-full border border-slate-200 bg-white px-4 py-2 shadow-inner focus-within:border-indigo-400 focus-within:ring-2 focus-within:ring-indigo-300 dark:border-slate-700 dark:bg-slate-800">
-						<span class="text-sm font-medium text-slate-500 dark:text-slate-300">キーワード検索</span>
+					<label class="flex flex-col items-stretch gap-2 rounded-2xl border border-slate-200 bg-white px-3 py-3 shadow-inner focus-within:border-indigo-400 focus-within:ring-2 focus-within:ring-indigo-300 dark:border-slate-700 dark:bg-slate-800 sm:flex-row sm:items-center sm:gap-3 sm:rounded-full sm:px-4 sm:py-2">
+						<span class="shrink-0 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-300 sm:text-sm sm:font-medium sm:normal-case sm:tracking-normal">キーワード検索</span>
 						<input
 							type="search"
 							placeholder="タイトル・概要・タグで検索..."
 							bind:value={searchQuery}
-							class="flex-1 bg-transparent text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none dark:text-slate-100"
+							class="w-full bg-transparent text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none dark:text-slate-100 sm:flex-1"
 						/>
 					</label>
 
@@ -169,18 +238,38 @@
 
 			<div class="flex flex-col gap-10">
 				<section class="space-y-4">
-					<div class="flex items-end justify-between">
+					<div class="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
 						<h2 class="text-xl font-semibold text-slate-900 dark:text-slate-100">記事</h2>
-						<p class="text-sm text-slate-500 dark:text-slate-400">{visibleArticleCount}件</p>
+						<p class="text-sm text-slate-500 dark:text-slate-400">
+							{visibleArticleCount}件（{visibleArticleStart}-{visibleArticleEnd}件を表示）
+						</p>
 					</div>
 					{#if visibleArticleCount > 0}
-						<ul class="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-							{#each filteredArticles as article (article.slug)}
-								<li class="flex">
-									<ArticleCard {article} />
-								</li>
-							{/each}
-						</ul>
+						{#key articleListAnimationKey}
+							<div
+								class="space-y-6"
+								in:fly={{ x: 20, y: 10, duration: 240, opacity: 0.1 }}
+								out:fly={{
+									x: -20,
+									y: -10,
+									duration: 190,
+									opacity: 0.1
+								}}
+							>
+								<ul class="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+									{#each pagedArticles as article (article.slug)}
+										<li class="flex">
+											<ArticleCard {article} />
+										</li>
+									{/each}
+								</ul>
+								<ArticlePagination
+									totalCount={visibleArticleCount}
+									perPage={ARTICLES_PER_PAGE}
+									bind:currentPage
+								/>
+							</div>
+						{/key}
 					{:else}
 						<div class="rounded-2xl border border-dashed border-slate-300 bg-white/70 p-8 text-center dark:border-slate-700 dark:bg-slate-900/60">
 							<p class="text-sm text-slate-600 dark:text-slate-400">該当する記事はありません。</p>
@@ -189,7 +278,7 @@
 				</section>
 
 				<section class="space-y-4">
-					<div class="flex items-end justify-between">
+					<div class="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
 						<h2 class="text-xl font-semibold text-slate-900 dark:text-slate-100">本</h2>
 						<p class="text-sm text-slate-500 dark:text-slate-400">{visibleBookCount}冊</p>
 					</div>
