@@ -33,6 +33,27 @@ To create a production version of your app:
 npm run build
 ```
 
+## AdSense 設定
+
+記事詳細ページ（`/articles/[articleId]`）では、`PUBLIC_ADSENSE_CLIENT_ID` が有効なときのみ
+Google AdSense の Auto Ads スクリプトを読み込みます。
+
+### 環境変数
+
+- `PUBLIC_ADSENSE_CLIENT_ID`
+  - 形式: `ca-pub-xxxxxxxxxxxxxxxx`
+  - production でのみ設定（staging/dev は未設定運用）
+
+### ads.txt
+
+`static/ads.txt` を公開しています。publisher ID 取得後、次の行を有効化してください。
+
+```txt
+google.com, pub-xxxxxxxxxxxxxxxx, DIRECT, f08c47fec0942fa0
+```
+
+注意: `ads.txt` は `pub-` 形式で、`ca-pub-` ではありません。
+
 ## 記事の管理
 
 articlesフォルダにmarkdown形式の記事を管理する。

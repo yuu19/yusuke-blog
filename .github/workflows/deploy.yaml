@@ -122,6 +122,7 @@ jobs:
         env:
           # 本番のみカノニカルURLを渡す（svelte-sitemap / Pagefind 用）
           PUBLIC_BASE_URL: https://tech-yusuke.com
+          PUBLIC_ADSENSE_CLIENT_ID: ${{ secrets.PUBLIC_ADSENSE_CLIENT_ID }}
         run: pnpm run build
         # ※ "postbuild": "pagefind --site .svelte-kit/cloudflare && npx svelte-sitemap --domain $PUBLIC_BASE_URL --out-dir ./.svelte-kit/cloudflare"
         #    のような postbuild が package.json にある前提

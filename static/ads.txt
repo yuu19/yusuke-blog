@@ -1,0 +1,8 @@
+# ads.txt for Yusuke Blog
+# This site will use Google AdSense after publisher ID is issued.
+#
+# IMPORTANT:
+# - Use "pub-xxxxxxxxxxxxxxxx" format in ads.txt (NOT "ca-pub-...")
+# - Uncomment and replace the line below after getting your publisher ID.
+#
+# google.com, pub-xxxxxxxxxxxxxxxx, DIRECT, f08c47fec0942fa0

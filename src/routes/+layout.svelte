@@ -115,6 +115,9 @@
 				ポリシーと規約</a
 			> をご覧ください。
 		</p>
+		<p class="hover:text-gray-400">
+			<a href="/privacy">プライバシーポリシー</a>
+		</p>
 	</footer>
 
 	<PwaInstallPrompt />
