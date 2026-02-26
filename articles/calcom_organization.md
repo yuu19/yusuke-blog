@@ -28,33 +28,33 @@ cal.com の Organization は、次の構成で実装されています。
 Organization 機能の主要ファイルは次です。
 
 - データモデル
-  - `packages/prisma/schema.prisma`
+  - [`packages/prisma/schema.prisma`](https://github.com/calcom/cal.com/blob/5d65a0f09199abeab9729d2665e9bed399692f55/packages/prisma/schema.prisma)
 - tRPC（Webアプリ側）
-  - `packages/trpc/server/routers/viewer/organizations/_router.tsx`
-  - `packages/trpc/server/routers/viewer/organizations/create.handler.ts`
-  - `packages/trpc/server/routers/viewer/organizations/list.handler.ts`
-  - `packages/trpc/server/routers/viewer/organizations/createTeams.handler.ts`
-  - `packages/trpc/server/routers/viewer/organizations/deleteTeam.handler.ts`
-  - `packages/trpc/server/routers/viewer/organizations/getMembers.handler.ts`
-  - `packages/trpc/server/routers/viewer/organizations/listMembers.handler.ts`
-  - `packages/trpc/server/routers/viewer/organizations/update.handler.ts`
+  - [`packages/trpc/server/routers/viewer/organizations/_router.tsx`](https://github.com/calcom/cal.com/blob/5d65a0f09199abeab9729d2665e9bed399692f55/packages/trpc/server/routers/viewer/organizations/_router.tsx)
+  - [`packages/trpc/server/routers/viewer/organizations/create.handler.ts`](https://github.com/calcom/cal.com/blob/5d65a0f09199abeab9729d2665e9bed399692f55/packages/trpc/server/routers/viewer/organizations/create.handler.ts)
+  - [`packages/trpc/server/routers/viewer/organizations/list.handler.ts`](https://github.com/calcom/cal.com/blob/5d65a0f09199abeab9729d2665e9bed399692f55/packages/trpc/server/routers/viewer/organizations/list.handler.ts)
+  - [`packages/trpc/server/routers/viewer/organizations/createTeams.handler.ts`](https://github.com/calcom/cal.com/blob/5d65a0f09199abeab9729d2665e9bed399692f55/packages/trpc/server/routers/viewer/organizations/createTeams.handler.ts)
+  - [`packages/trpc/server/routers/viewer/organizations/deleteTeam.handler.ts`](https://github.com/calcom/cal.com/blob/5d65a0f09199abeab9729d2665e9bed399692f55/packages/trpc/server/routers/viewer/organizations/deleteTeam.handler.ts)
+  - [`packages/trpc/server/routers/viewer/organizations/getMembers.handler.ts`](https://github.com/calcom/cal.com/blob/5d65a0f09199abeab9729d2665e9bed399692f55/packages/trpc/server/routers/viewer/organizations/getMembers.handler.ts)
+  - [`packages/trpc/server/routers/viewer/organizations/listMembers.handler.ts`](https://github.com/calcom/cal.com/blob/5d65a0f09199abeab9729d2665e9bed399692f55/packages/trpc/server/routers/viewer/organizations/listMembers.handler.ts)
+  - [`packages/trpc/server/routers/viewer/organizations/update.handler.ts`](https://github.com/calcom/cal.com/blob/5d65a0f09199abeab9729d2665e9bed399692f55/packages/trpc/server/routers/viewer/organizations/update.handler.ts)
 - Organization リポジトリ
-  - `packages/features/ee/organizations/repositories/OrganizationRepository.ts`
+  - [`packages/features/ee/organizations/repositories/OrganizationRepository.ts`](https://github.com/calcom/cal.com/blob/5d65a0f09199abeab9729d2665e9bed399692f55/packages/features/ee/organizations/repositories/OrganizationRepository.ts)
 - 権限
-  - `packages/features/pbac/domain/types/permission-registry.ts`
-  - `apps/web/modules/members/getOrgMembersPageData.ts`
+  - [`packages/features/pbac/domain/types/permission-registry.ts`](https://github.com/calcom/cal.com/blob/5d65a0f09199abeab9729d2665e9bed399692f55/packages/features/pbac/domain/types/permission-registry.ts)
+  - [`apps/web/modules/members/getOrgMembersPageData.ts`](https://github.com/calcom/cal.com/blob/5d65a0f09199abeab9729d2665e9bed399692f55/apps/web/modules/members/getOrgMembersPageData.ts)
 - UIルーティング
-  - `apps/web/app/(use-page-wrapper)/settings/(settings-layout)/SettingsLayoutAppDirClient.tsx`
+  - [`apps/web/app/(use-page-wrapper)/settings/(settings-layout)/SettingsLayoutAppDirClient.tsx`](https://github.com/calcom/cal.com/blob/5d65a0f09199abeab9729d2665e9bed399692f55/apps/web/app/%28use-page-wrapper%29/settings/%28settings-layout%29/SettingsLayoutAppDirClient.tsx)
 - API v2（Platform/管理系）
-  - `apps/api/v2/src/modules/organizations/teams/index/organizations-teams.controller.ts`
-  - `apps/api/v2/src/modules/organizations/organizations/organizations-organizations.controller.ts`
+  - [`apps/api/v2/src/modules/organizations/teams/index/organizations-teams.controller.ts`](https://github.com/calcom/cal.com/blob/5d65a0f09199abeab9729d2665e9bed399692f55/apps/api/v2/src/modules/organizations/teams/index/organizations-teams.controller.ts)
+  - [`apps/api/v2/src/modules/organizations/organizations/organizations-organizations.controller.ts`](https://github.com/calcom/cal.com/blob/5d65a0f09199abeab9729d2665e9bed399692f55/apps/api/v2/src/modules/organizations/organizations/organizations-organizations.controller.ts)
 - SSO / 自動参加
-  - `packages/features/auth/lib/next-auth-options.ts`
-  - `packages/features/ee/sso/lib/sso.ts`
-  - `apps/web/modules/ee/organizations/components/OrgAutoJoinSetting.tsx`
+  - [`packages/features/auth/lib/next-auth-options.ts`](https://github.com/calcom/cal.com/blob/5d65a0f09199abeab9729d2665e9bed399692f55/packages/features/auth/lib/next-auth-options.ts)
+  - [`packages/features/ee/sso/lib/sso.ts`](https://github.com/calcom/cal.com/blob/5d65a0f09199abeab9729d2665e9bed399692f55/packages/features/ee/sso/lib/sso.ts)
+  - [`apps/web/modules/ee/organizations/components/OrgAutoJoinSetting.tsx`](https://github.com/calcom/cal.com/blob/5d65a0f09199abeab9729d2665e9bed399692f55/apps/web/modules/ee/organizations/components/OrgAutoJoinSetting.tsx)
 - ドメイン運用
-  - `packages/features/ee/organizations/lib/orgDomains.ts`
-  - `packages/lib/domainManager/organization.ts`
+  - [`packages/features/ee/organizations/lib/orgDomains.ts`](https://github.com/calcom/cal.com/blob/5d65a0f09199abeab9729d2665e9bed399692f55/packages/features/ee/organizations/lib/orgDomains.ts)
+  - [`packages/lib/domainManager/organization.ts`](https://github.com/calcom/cal.com/blob/5d65a0f09199abeab9729d2665e9bed399692f55/packages/lib/domainManager/organization.ts)
 
 ## 1. データモデル: Teamテーブルを二役で使う
 
@@ -64,6 +64,44 @@ Organization 機能の主要ファイルは次です。
 - `parentId` がある `Team` は組織配下のサブチーム
 - `Membership` が `OWNER/ADMIN/MEMBER` を持ち、組織とチーム双方の所属を担う
 - `OrganizationSettings` に `orgAutoAcceptEmail` や `orgAutoJoinOnSignup` など組織固有設定を持つ
+
+ER 図で見ると、モデル関係は次のようになります（実装意図の把握用に主要カラムのみ記載）。
+
+```mermaid
+erDiagram
+    TEAM {
+        int id PK
+        string slug
+        boolean isOrganization
+        int parentId FK
+        boolean isPlatform
+    }
+
+    MEMBERSHIP {
+        int id PK
+        int teamId FK
+        int userId FK
+        string role
+        boolean accepted
+    }
+
+    ORGANIZATION_SETTINGS {
+        int id PK
+        int organizationId FK
+        string orgAutoAcceptEmail
+        boolean orgAutoJoinOnSignup
+    }
+
+    USER {
+        int id PK
+        string email
+    }
+
+    TEAM ||--o{ TEAM : parentId
+    TEAM ||--o{ MEMBERSHIP : has
+    USER ||--o{ MEMBERSHIP : joins
+    TEAM ||--|| ORGANIZATION_SETTINGS : config_for_org
+```
 
 この設計により、同一の membership/pbac 基盤を使って、組織とチームを一貫管理できます。
 
@@ -85,7 +123,7 @@ https://github.com/calcom/cal.com/blob/5d65a0f09199abeab9729d2665e9bed399692f55/
 
 ### 2.2 create.handler の責務
 
-`create.handler.ts` では、実質的に以下を行います。
+[`create.handler.ts`](https://github.com/calcom/cal.com/blob/5d65a0f09199abeab9729d2665e9bed399692f55/packages/trpc/server/routers/viewer/organizations/create.handler.ts) では、実質的に以下を行います。
 
 - self-serve可否 (`ORG_SELF_SERVE_ENABLED`) や owner email 条件の検証
 - 既存 slug / reserved subdomain の衝突チェック
@@ -127,7 +165,7 @@ https://github.com/calcom/cal.com/blob/5d65a0f09199abeab9729d2665e9bed399692f55/
 
 ## 4. 権限制御（PBAC）
 
-Organization のアクションは `permission-registry.ts` で明示されています。
+Organization のアクションは [`permission-registry.ts`](https://github.com/calcom/cal.com/blob/5d65a0f09199abeab9729d2665e9bed399692f55/packages/features/pbac/domain/types/permission-registry.ts) で明示されています。
 
 - `organization.listMembers`
 - `organization.invite`
@@ -152,9 +190,9 @@ https://github.com/calcom/cal.com/blob/5d65a0f09199abeab9729d2665e9bed399692f55/
 
 ### 5.1 tRPC（Web）
 
-`createTeams.handler.ts` では `team.create` 権限チェック後、`parentId=orgId` でサブチームを作成します。既存チーム移行（`moveTeam`）もここで処理します。
+[`createTeams.handler.ts`](https://github.com/calcom/cal.com/blob/5d65a0f09199abeab9729d2665e9bed399692f55/packages/trpc/server/routers/viewer/organizations/createTeams.handler.ts) では `team.create` 権限チェック後、`parentId=orgId` でサブチームを作成します。既存チーム移行（`moveTeam`）もここで処理します。
 
-`deleteTeam.handler.ts` は `parentId` があるチームのみ削除対象にし、`team.delete` 権限でガードします。
+[`deleteTeam.handler.ts`](https://github.com/calcom/cal.com/blob/5d65a0f09199abeab9729d2665e9bed399692f55/packages/trpc/server/routers/viewer/organizations/deleteTeam.handler.ts) は `parentId` があるチームのみ削除対象にし、`team.delete` 権限でガードします。
 
 対応実装:
 
@@ -194,11 +232,11 @@ https://github.com/calcom/cal.com/blob/5d65a0f09199abeab9729d2665e9bed399692f55/
 
 ## 7. 組織ドメイン解決とDNS連携
 
-Organization slug は `orgDomains.ts` で hostname から解決され、`getOrgFullOrigin()` で組織URLが組み立てられます。
+Organization slug は [`orgDomains.ts`](https://github.com/calcom/cal.com/blob/5d65a0f09199abeab9729d2665e9bed399692f55/packages/features/ee/organizations/lib/orgDomains.ts) で hostname から解決され、`getOrgFullOrigin()` で組織URLが組み立てられます。
 
 組織作成時のドメイン設定は `createDomain()` が担い、Vercel と Cloudflare DNS の両経路を扱います。
 
-機能フラグ/運用前提は Organizations README と `.env.example` にまとまっています。
+機能フラグ/運用前提は [Organizations README](https://github.com/calcom/cal.com/blob/5d65a0f09199abeab9729d2665e9bed399692f55/packages/features/ee/organizations/README.md) と [`.env.example`](https://github.com/calcom/cal.com/blob/5d65a0f09199abeab9729d2665e9bed399692f55/.env.example) にまとまっています。
 
 対応実装:
 
