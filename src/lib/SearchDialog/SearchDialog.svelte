@@ -2,11 +2,75 @@
   import { Dialog } from "bits-ui";
   import { PagefindUI } from "@pagefind/default-ui";
   import "@pagefind/default-ui/css/ui.css";
+  import { onDestroy } from "svelte";
+
   interface Props {
     children?: import("svelte").Snippet;
   }
 
   let { children }: Props = $props();
+  let pagefindInitTimer: number | null = null;
+  let resultLinkObserver: MutationObserver | null = null;
+
+  function normalizeInternalUrl(url: string) {
+    try {
+      const parsed = new URL(url, window.location.origin);
+      if (parsed.origin !== window.location.origin) {
+        return url;
+      }
+
+      let pathname = parsed.pathname;
+      pathname = pathname.replace(/\/index\.html$/, "/");
+      pathname = pathname.replace(/\.html$/, "");
+      parsed.pathname = pathname;
+      return `${parsed.pathname}${parsed.search}${parsed.hash}`;
+    } catch {
+      return url;
+    }
+  }
+
+  function normalizeResultLinks() {
+    const searchRoot = document.getElementById("search");
+    if (!searchRoot) return;
+
+    searchRoot.querySelectorAll<HTMLAnchorElement>("a[href]").forEach((link) => {
+      const href = link.getAttribute("href");
+      if (!href) return;
+      const normalizedHref = normalizeInternalUrl(href);
+      if (normalizedHref !== href) {
+        link.setAttribute("href", normalizedHref);
+      }
+    });
+  }
+
+  function startResultLinkObserver() {
+    const searchRoot = document.getElementById("search");
+    if (!searchRoot) return;
+
+    resultLinkObserver?.disconnect();
+    resultLinkObserver = new MutationObserver(() => {
+      normalizeResultLinks();
+    });
+    resultLinkObserver.observe(searchRoot, {
+      childList: true,
+      subtree: true,
+    });
+
+    normalizeResultLinks();
+  }
+
+  function cleanupSearchDialog() {
+    if (typeof window === "undefined") return;
+
+    if (pagefindInitTimer !== null) {
+      window.clearTimeout(pagefindInitTimer);
+      pagefindInitTimer = null;
+    }
+
+    resultLinkObserver?.disconnect();
+    resultLinkObserver = null;
+    window.removeEventListener("click", handleClick);
+  }
 
   function handleKeyDown(e: KeyboardEvent) {
     // command + k でダイアログを開く
@@ -21,11 +85,18 @@
    * リンクをクリックしたときにダイアログを閉じる
    */
   function handleClick(e: MouseEvent) {
-    const isLink = (e.target as HTMLElement).tagName === "A";
-
-    if (isLink) {
+    const target = e.target as HTMLElement | null;
+    const link = target?.closest<HTMLAnchorElement>("a[href]");
+    if (link) {
+      const href = link.getAttribute("href");
+      if (href) {
+        const normalizedHref = normalizeInternalUrl(href);
+        if (normalizedHref !== href) {
+          link.setAttribute("href", normalizedHref);
+        }
+      }
       open = false;
-      window.removeEventListener("click", handleClick);
+      cleanupSearchDialog();
     }
   }
 
@@ -33,7 +104,11 @@
     open = o;
     if (o) {
       // ダイアログが開いてから <div id="search" /> が表示されるまでちょっと待つ
-      setTimeout(() => {
+      pagefindInitTimer = window.setTimeout(() => {
+        const searchRoot = document.getElementById("search");
+        if (!searchRoot) return;
+        searchRoot.innerHTML = "";
+
         new PagefindUI({
           element: "#search",
           showSubResults: true,
@@ -52,16 +127,21 @@
             }
 
             if (result.url) {
-              const parsed = new URL(result.url, window.location.origin);
-              let pathname = parsed.pathname;
-              pathname = pathname.replace(/\/index\.html$/, "/");
-              pathname = pathname.replace(/\.html$/, "");
-              parsed.pathname = pathname;
-              result.url = `${parsed.pathname}${parsed.search}${parsed.hash}`;
+              result.url = normalizeInternalUrl(result.url);
+            }
+
+            const subResults = (result as { sub_results?: Array<{ url?: string }> }).sub_results;
+            if (Array.isArray(subResults)) {
+              for (const subResult of subResults) {
+                if (subResult.url) {
+                  subResult.url = normalizeInternalUrl(subResult.url);
+                }
+              }
             }
             return result;
           },
         });
+        startResultLinkObserver();
         document
           .querySelector<HTMLElement>(".pagefind-ui__search-input")
           ?.focus();
@@ -69,9 +149,13 @@
 
       window.addEventListener("click", handleClick);
     } else {
-      window.removeEventListener("click", handleClick);
+      cleanupSearchDialog();
     }
   }
+
+  onDestroy(() => {
+    cleanupSearchDialog();
+  });
 </script>
 
 <svelte:document onkeydown={handleKeyDown} />
