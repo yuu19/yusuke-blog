@@ -1,96 +1,167 @@
-# create-svelte
+# yusuke-blog
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+SvelteKit 5 で構築した技術ブログです。`articles/` と `books/` の Markdown/YAML コンテンツをもとに、Cloudflare Workers 上で配信します。
 
-## Creating a project
+## 技術スタック
 
-If you're seeing this, you've probably already done this step. Congrats!
+| カテゴリ | 採用技術 |
+| --- | --- |
+| アプリ | Svelte 5, SvelteKit 2 |
+| UI/スタイル | Tailwind CSS, bits-ui, melt-ui |
+| コンテンツ | Markdown (`gray-matter`), YAML (`config.yaml`) |
+| 検索 | Pagefind |
+| デプロイ | Cloudflare Workers (`@sveltejs/adapter-cloudflare`, Wrangler) |
+| テスト | Vitest, Playwright |
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+## ディレクトリ構成
 
-# create a new project in my-app
-npm create svelte@latest my-app
+```txt
+.
+├─ articles/                  # 記事Markdown
+├─ books/                     # 本コンテンツ（book単位のフォルダ）
+├─ docs/                      # ドキュメント（このREADMEを含む）
+├─ scripts/                   # ビルド補助スクリプト
+├─ src/
+│  ├─ lib/
+│  │  ├─ getArticles.ts       # 記事一覧の読み込み
+│  │  ├─ getBooks.ts          # 本/章データの読み込み
+│  │  ├─ contributions.remote.ts # GitHub PR一覧取得（Remote Function）
+│  │  └─ server/
+│  │     ├─ github.ts         # GitHub APIクライアント
+│  │     └─ zennMarkdown.ts   # zenn-markdown-htmlラッパー
+│  ├─ routes/                 # ルーティング
+│  └─ service-worker.ts       # PWAキャッシュ制御
+├─ static/                    # 画像・manifest・ads.txt など静的ファイル
+└─ wrangler.jsonc             # Cloudflare Workers設定
 ```
 
-## Developing
+## 現在の構成図（Mermaid）
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+```mermaid
+flowchart LR
+  User[Browser]
+
+  subgraph CF[Cloudflare Workers]
+    App[SvelteKit App]
+    StaticRoutes[Prerendered routes\n/, /articles, /books, /tags, /articles/:articleId, /books/:bookId/:chapterId]
+    DynamicRoute[SSR route\n/contributions]
+    Search[Pagefind index]
+    PWA[service-worker.js + manifest.webmanifest]
+  end
+
+  subgraph Repo[Repository data]
+    Articles[articles/*.md]
+    Books[books/*/config.yaml + *.md]
+    StaticAssets[static/**]
+  end
+
+  subgraph External[External services]
+    GitHub[GitHub Search API]
+    EmailJS[EmailJS]
+    GA[Google Analytics]
+    AdSense[Google AdSense]
+    Zenn[zenn-markdown-html / zenn-embed-elements]
+  end
+
+  User --> App
+  App --> StaticRoutes
+  App --> DynamicRoute
+  App --> Search
+  App --> PWA
+
+  Articles --> App
+  Books --> App
+  StaticAssets --> App
+
+  DynamicRoute --> GitHub
+  App --> Zenn
+  User --> EmailJS
+  User --> GA
+  User --> AdSense
+```
+
+## セットアップ
 
 ```bash
+npm install
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
 
-## Building
+`pnpm` を使う場合:
 
-To create a production version of your app:
+```bash
+pnpm install
+pnpm dev
+```
+
+## 主要コマンド
+
+```bash
+npm run dev            # 開発サーバ
+npm run check          # 型/静的チェック
+npm run lint           # ESLint + Prettier check
+npm run test           # Playwright + Vitest
+npm run build          # build + postbuild（Pagefind/Sitemap生成含む）
+npm run preview        # ローカルプレビュー
+npm run generate:og    # OGP画像生成
+```
+
+## ビルド後処理
+
+`npm run build` の後に `postbuild` で以下を実行します。
+
+1. `pagefind --site .svelte-kit/cloudflare`
+2. `node scripts/update-pagefind-manifest.js`
+3. `svelte-sitemap --domain $PUBLIC_BASE_URL --out-dir ./.svelte-kit/cloudflare`
+
+## コンテンツ管理
+
+### 記事（`articles/*.md`）
+
+記事は frontmatter を持つ Markdown として管理します。
+
+| キー | 型 | 説明 |
+| --- | --- | --- |
+| `title` | `string` | 記事タイトル |
+| `description` | `string` | 記事概要 |
+| `date` | `string` (`YYYY-MM-DD`) | 公開日 |
+| `topics` | `string[]` | タグ |
+| `blog_published` | `boolean` | ブログで公開するか |
+| `published` | `boolean` | 外部公開用フラグ（将来用途） |
+
+### 本（`books/<slug>/`）
+
+`config.yaml` と章Markdownを配置します。
+
+| ファイル | 説明 |
+| --- | --- |
+| `books/<slug>/config.yaml` | 本のメタデータ（`title`, `summary`, `topics`, `published`, `price`, `chapters`） |
+| `books/<slug>/*.md` | 各章。frontmatter で `title`, `free` を指定可能 |
+
+章の表示順は次の優先順位で決まります。
+
+1. `config.yaml` の `chapters` 配列順
+2. `01.introduction.md` のような数値プレフィックス順
+3. ファイル名順
+
+## 環境変数
+
+| 変数名 | 用途 | 必須 |
+| --- | --- | --- |
+| `PUBLIC_BASE_URL` | sitemap/canonical/OG URL の生成 | 推奨 |
+| `PUBLIC_ADSENSE_CLIENT_ID` | 記事ページでの AdSense 読み込み (`ca-pub-...`) | 任意 |
+| `GITHUB_TOKEN` | `/contributions` の GitHub API 認証（レート制限緩和） | 任意 |
+| `VITE_YOUR_SERVICE_ID` | お問い合わせフォーム（EmailJS） | 任意 |
+| `VITE_YOUR_TEMPLATE_ID` | お問い合わせフォーム（EmailJS） | 任意 |
+| `VITE_YOUR_PUBLIC_KEY` | お問い合わせフォーム（EmailJS） | 任意 |
+
+## デプロイ
+
+Cloudflare Workers へデプロイします。
 
 ```bash
 npm run build
+npx wrangler deploy
 ```
 
-## AdSense 設定
-
-記事詳細ページ（`/articles/[articleId]`）では、`PUBLIC_ADSENSE_CLIENT_ID` が有効なときのみ
-Google AdSense の Auto Ads スクリプトを読み込みます。
-
-### 環境変数
-
-- `PUBLIC_ADSENSE_CLIENT_ID`
-  - 形式: `ca-pub-xxxxxxxxxxxxxxxx`
-  - production でのみ設定（staging/dev は未設定運用）
-
-### ads.txt
-
-`static/ads.txt` を公開しています。publisher ID 取得後、次の行を有効化してください。
-
-```txt
-google.com, pub-xxxxxxxxxxxxxxxx, DIRECT, f08c47fec0942fa0
-```
-
-注意: `ads.txt` は `pub-` 形式で、`ca-pub-` ではありません。
-
-## 記事の管理
-
-articlesフォルダにmarkdown形式の記事を管理する。
-記事は次のメタデータを持つ。
-
-| キー           | 例値                                                                                                      | 説明                                                                                     |
-| -------------- | --------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| title          | Programmer’s Python: Async - Threads, processes, asyncio & more: Something Completely Differentの読書メモ | 記事やブログポストのタイトル。内容の概要を伝える。                                       |
-| description    | （空文字）                                                                                                | 記事の概要や補足説明。                                                                   |
-| date           | 2024-08-19                                                                                                | 記事の作成日を表します。                                                                 |
-| topics         | ["python", "async"]                                                                                       | 記事の内容に関連するトピックやキーワードのリスト。タグでブログ記事を絞ることができます。 |
-| blog_published | True                                                                                                      | ブログとして公開されるかどうかのフラグ。Trueの場合、ブログ記事として扱われます。         |
-| published      | False                                                                                                     | zennに記事を公開されるかどうかのフラグ。Trueの場合、Zennに記事が公開されます(現在未対応) |
-
-## 本の管理
-
-`books` フォルダ配下に `books/<book-slug>/config.yaml` とチャプター markdown を配置して管理する。
-
-| ファイル                  | 説明                                                                                             |
-| ------------------------- | ------------------------------------------------------------------------------------------------ |
-| books/\<slug\>/config.yaml | 本のメタデータ（title, summary, topics, published, price, chapters）を管理する設定ファイル      |
-| books/\<slug\>/*.md        | 各チャプター。frontmatter の `title` と `free`（有料本での無料公開章フラグ）を設定可能          |
-
-チャプターの表示順は次の優先順位で決まる。
-
-1. `config.yaml` の `chapters` 配列順
-2. `1.introduction.md` のような数値プレフィックス順
-3. それ以外はファイル名順
-
-## 使用技術
-
-| カテゴリー     | 技術・ツール                |
-| -------------- | --------------------------- |
-| フロントエンド | Svelte, SvelteKit           |
-| スタイリング   | Tailwind CSS, shadcn svelte |
-| インフラ       | Cloudflare Pages            |
-
-## 現在のアーキテクチャー
-
-![alt text](architecture.png)
+`wrangler.jsonc` では `.svelte-kit/cloudflare/_worker.js` をエントリに設定しています。
