@@ -127,7 +127,7 @@ npm run generate:og    # OGP画像生成
 | `date` | `string` (`YYYY-MM-DD`) | 公開日 |
 | `topics` | `string[]` | タグ |
 | `blog_published` | `boolean` | ブログで公開するか |
-| `published` | `boolean` | 外部公開用フラグ（将来用途） |
+| `published` | `boolean` | Zennで公開するか |
 
 ### 本（`books/<slug>/`）
 
