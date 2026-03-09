@@ -8,7 +8,7 @@ test.describe('blog e2e', () => {
 		const firstArticleCard = page.locator('a[href^="/articles/"]').first();
 		await expect(firstArticleCard).toBeVisible();
 
-		const cardTitle = (await firstArticleCard.locator('h3').first().textContent())?.trim() ?? '';
+		const cardTitle = (await firstArticleCard.getByRole('heading').first().textContent())?.trim() ?? '';
 		await firstArticleCard.click();
 
 		await expect(page).toHaveURL(/\/articles\/[^/]+$/);

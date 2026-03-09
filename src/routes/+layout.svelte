@@ -80,7 +80,7 @@
 				<a href="/profiles" class="transition-colors hover:text-white">Profile</a>
 				<a href="/articles" class="transition-colors hover:text-white">Articles</a>
 				<a href="/books" class="transition-colors hover:text-white">Books</a>
-				<a href="/form" class="transition-colors hover:text-white">Form</a>
+				<a href="/form" class="transition-colors hover:text-white">お問い合わせ</a>
 			</nav>
 
 			<div class="order-2 flex items-center justify-end md:order-3">

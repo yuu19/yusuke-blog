@@ -56,8 +56,7 @@ flowchart LR
   end
 
   subgraph External[External services]
-    GitHub[GitHub Search API]
-    EmailJS[EmailJS]
+    GitHub[GitHub Search API / Issues API]
     GA[Google Analytics]
     AdSense[Google AdSense]
     Zenn[zenn-markdown-html / zenn-embed-elements]
@@ -74,8 +73,8 @@ flowchart LR
   StaticAssets --> App
 
   DynamicRoute --> GitHub
+  App --> GitHub
   App --> Zenn
-  User --> EmailJS
   User --> GA
   User --> AdSense
 ```
@@ -150,10 +149,9 @@ npm run generate:og    # OGP画像生成
 | --- | --- | --- |
 | `PUBLIC_BASE_URL` | sitemap/canonical/OG URL の生成 | 推奨 |
 | `PUBLIC_ADSENSE_CLIENT_ID` | 記事ページでの AdSense 読み込み (`ca-pub-...`) | 任意 |
-| `GITHUB_TOKEN` | `/contributions` の GitHub API 認証（レート制限緩和） | 任意 |
-| `VITE_YOUR_SERVICE_ID` | お問い合わせフォーム（EmailJS） | 任意 |
-| `VITE_YOUR_TEMPLATE_ID` | お問い合わせフォーム（EmailJS） | 任意 |
-| `VITE_YOUR_PUBLIC_KEY` | お問い合わせフォーム（EmailJS） | 任意 |
+| `GITHUB_TOKEN` | `/contributions` の取得と `/form` からの GitHub Issue 作成に利用 | 推奨 |
+
+`GITHUB_TOKEN` は対象リポジトリ（`yuu19/yusuke-blog`）に対して、Issue 作成可能な権限を持つトークンを利用してください（Fine-grained token 推奨）。
 
 ## デプロイ
 

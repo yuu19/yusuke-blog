@@ -46,7 +46,7 @@
 			<div class="flex flex-wrap gap-2">
 				{#if topics.length > 0}
 					{#each topics as topic (topic)}
-						<Tag {topic} />
+						<Tag {topic} link={false} />
 					{/each}
 				{:else}
 					<span class="rounded-full bg-slate-200 px-3 py-1 text-xs font-medium text-slate-600 dark:bg-slate-700 dark:text-slate-300">

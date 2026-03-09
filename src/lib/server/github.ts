@@ -23,6 +23,24 @@ export type GithubSearchIssuesResponse = {
   items: GithubSearchIssueItem[];
 };
 
+export type GithubIssue = {
+  id: number;
+  number: number;
+  title: string;
+  html_url: string;
+  body: string | null;
+  state: 'open' | 'closed';
+  created_at: string;
+  updated_at: string;
+};
+
+export type CreateIssueInput = {
+  owner: string;
+  repo: string;
+  title: string;
+  body: string;
+};
+
 const buildHeaders = () => {
   const headers = new Headers();
   headers.set('Accept', 'application/vnd.github+json');
@@ -47,9 +65,18 @@ const parseGithubError = async (response: Response) => {
   return response.statusText;
 };
 
-const fetchGithubJson = async <T>(url: string) => {
+const fetchGithubJson = async <T>(url: string, init: RequestInit = {}) => {
+  const headers = buildHeaders();
+  if (init.headers) {
+    const customHeaders = new Headers(init.headers);
+    customHeaders.forEach((value, key) => {
+      headers.set(key, value);
+    });
+  }
+
   const response = await fetch(url, {
-    headers: buildHeaders()
+    ...init,
+    headers
   });
 
   if (!response.ok) {
@@ -81,4 +108,21 @@ export const searchIssues = async (
   }
 
   return fetchGithubJson<GithubSearchIssuesResponse>(url.toString());
+};
+
+export const createIssue = async (input: CreateIssueInput) => {
+  const url = `${GITHUB_API_BASE}/repos/${encodeURIComponent(input.owner)}/${encodeURIComponent(
+    input.repo
+  )}/issues`;
+
+  return fetchGithubJson<GithubIssue>(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      title: input.title,
+      body: input.body
+    })
+  });
 };

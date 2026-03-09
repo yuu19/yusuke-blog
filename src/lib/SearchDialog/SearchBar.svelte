@@ -2,8 +2,7 @@
   import { Search } from 'lucide-svelte';
 </script>
 
-<button
-  type="button"
+<span
   class="flex h-10 min-w-[12rem] items-center gap-3 rounded-full border border-black/10 bg-white/90 px-4 text-sm font-medium text-zinc-700 shadow-sm transition duration-150 hover:bg-white focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-indigo-300 dark:border-white/15 dark:bg-white/10 dark:text-white/80 dark:hover:bg-white/20"
 >
   <Search
@@ -17,4 +16,4 @@
     <kbd class="font-sans">⌘</kbd>
     <kbd class="font-sans">K</kbd>
   </span>
-</button>
+</span>

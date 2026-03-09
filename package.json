@@ -58,7 +58,6 @@
     "wrangler": "^4.42.2"
   },
   "dependencies": {
-    "@emailjs/browser": "^4.4.1",
     "@markslides/markdown-it-mermaid": "^0.3.6",
     "@types/nprogress": "^0.2.3",
     "@vscode/markdown-it-katex": "^1.1.1",
@@ -73,9 +72,11 @@
     "markdown-it-katex": "^2.0.3",
     "markdown-it-mermaid": "^0.2.5",
     "nprogress": "^0.2.0",
+    "sveltekit-superforms": "^2.30.0",
     "zenn-cli": "^0.1.158",
     "zenn-content-css": "^0.1.158",
     "zenn-embed-elements": "^0.1.158",
-    "zenn-markdown-html": "^0.1.158"
+    "zenn-markdown-html": "^0.1.158",
+    "zod": "^4.3.6"
   }
 }

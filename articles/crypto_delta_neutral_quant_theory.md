@@ -68,6 +68,7 @@ $$
 
 - [Black-Scholes (1973)](https://doi.org/10.1086/260062)
 - [Merton (1973)](https://doi.org/10.2307/3003143)
+- [Angeris et al. (2022): A primer on perpetuals](https://arxiv.org/abs/2209.03307)
 
 ---
 
@@ -115,8 +116,9 @@ $$
 
 参考リンク:
 
-- [Alison Etheridge: Stochastic Calculus for Finance](https://www.stats.ox.ac.uk/~etheridg/finmath/index.html)
-- [John C. Hull: Options, Futures, and Other Derivatives (Slides)](https://www-2.rotman.utoronto.ca/~hull/ofodslides/index.html)
+- [Ederington (1979): The hedging performance of the new futures markets](https://econpapers.repec.org/article/blajfinan/v_3a34_3ay_3a1979_3ai_3a1_3ap_3a157-70.htm)
+- [Myers and Thompson (1989): Generalized Optimal Hedge Ratio Estimation](https://ideas.repec.org/a/oup/ajagec/v71y1989i4p858-868..html)
+- [Aldrich: Hedging and minimum-variance hedge ratio (Lecture Notes)](https://ealdrich.github.io/Teaching/Econ236/LectureNotes/hedging.html)
 
 ---
 
@@ -167,6 +169,7 @@ $$
 
 - [Angeris et al. (2022): A primer on perpetuals](https://arxiv.org/abs/2209.03307)
 - [Ackerer et al. (2023/2024): Perpetual Futures Pricing](https://arxiv.org/abs/2310.11771)
+- [Deribit: Inverse Perpetual（契約とFunding計算）](https://support.deribit.com/hc/en-us/articles/31424954847133-Inverse-Perpetual)
 
 ---
 
@@ -213,7 +216,7 @@ $$
 
 - [Kim, Park (2025): Designing funding rates for perpetual futures in cryptocurrency markets](https://arxiv.org/abs/2506.08573)
 - [BIS Working Paper 1087: Crypto carry](https://www.bis.org/publ/work1087.htm)
-- [Bybit: Funding Fee Calculation](https://www.bybit.com/en/help-center/article/Funding-fee-calculation/)
+- [Deribit API: public/get_funding_rate_history](https://docs.deribit.com/api-reference/market-data/public-get_funding_rate_history)
 
 ---
 
@@ -248,8 +251,10 @@ $$
 
 参考リンク:
 
-- [BIS Working Paper 1087: Crypto carry](https://www.bis.org/publ/work1087.htm)
-- [Deribit: Inverse Perpetual](https://support.deribit.com/hc/en-us/articles/31424954847133-Inverse-Perpetual)
+- [Black and Cox (1976): A first-passage model for default risk](https://doi.org/10.1111/j.1540-6261.1976.tb01891.x)
+- [Herrmann and Tanré (2015): First-passage time of Brownian motion to a boundary](https://arxiv.org/abs/1501.07060)
+- [Deribit: Liquidations](https://support.deribit.com/hc/en-us/articles/25944769313309-Liquidations)
+- [Bybit: Liquidation Price (USDT Contract)](https://www.bybit.com/en/help-center/article/Liquidation-Price-USDT-Contract)
 
 ---
 
@@ -285,8 +290,9 @@ $$
 
 参考リンク:
 
-- [John C. Hull: Options, Futures, and Other Derivatives (Slides)](https://www-2.rotman.utoronto.ca/~hull/ofodslides/index.html)
-- [Deribit API: public/get_funding_rate_history](https://docs.deribit.com/api-reference/market-data/public-get_funding_rate_history)
+- [Leland (1985): Option Pricing and Replication with Transactions Costs](https://econpapers.repec.org/article/blajfinan/v_3a40_3ay_3a1985_3ai_3a5_3ap_3a1283-1301.htm)
+- [Boyle and Vorst (1992): Option replication in discrete time with transaction costs](https://doi.org/10.1111/j.1540-6261.1992.tb03986.x)
+- [Whalley and Wilmott (1997): Asymptotic analysis of optimal hedging with transaction costs](https://doi.org/10.1111/1467-9965.00034)
 
 ---
 
@@ -320,6 +326,7 @@ $$
 
 - [Merton (1973)](https://doi.org/10.2307/3003143)
 - [John C. Hull: Options, Futures, and Other Derivatives (Slides)](https://www-2.rotman.utoronto.ca/~hull/ofodslides/index.html)
+- [Carr-Madan公式の導出と証明、数値実装（本サイト）](https://tech-yusuke.com/articles/carr_madan_formula)
 
 ---
 
@@ -340,46 +347,84 @@ $$
 
 参考リンク:
 
-- [Angeris et al. (2022): A primer on perpetuals](https://arxiv.org/abs/2209.03307)
 - [Ackerer et al. (2023/2024): Perpetual Futures Pricing](https://arxiv.org/abs/2310.11771)
-- [BIS Working Paper 1087: Crypto carry](https://www.bis.org/publ/work1087.htm)
+- [Kim, Park (2025): Designing funding rates for perpetual futures in cryptocurrency markets](https://arxiv.org/abs/2506.08573)
+- [Black and Cox (1976): A first-passage model for default risk](https://doi.org/10.1111/j.1540-6261.1976.tb01891.x)
 
 ---
 
-## 9. 参考文献・講義資料・Web資料
+## 9. 参考文献（章別対応）
 
-### 9.1 数理ファイナンスの基礎（連続時間・ヘッジ）
+### 9.1 第1章「セットアップ: 何を中立化するか」
 
-- [Black, F. and Scholes, M. (1973), *The Pricing of Options and Corporate Liabilities*](https://doi.org/10.1086/260062)  
-  連続時間ヘッジと無裁定価格付けの原点。デルタヘッジの思想を確認する土台。
-- [Merton, R. C. (1973), *Theory of Rational Option Pricing*](https://doi.org/10.2307/3003143)  
-  Black-Scholes の枠組みを一般化し、自己資金制約付き動的複製の理論を拡張。
-- [Alison Etheridge, *Stochastic Calculus for Finance*（講義ノート）](https://www.stats.ox.ac.uk/~etheridg/finmath/index.html)  
-  伊藤積分・マルチンゲール・Black-Scholes までを数理的に復習できる講義資料。
+- [Black-Scholes (1973)](https://doi.org/10.1086/260062)  
+  連続時間で「何を複製し、何を中立化するか」の原点。
+- [Merton (1973)](https://doi.org/10.2307/3003143)  
+  動的ヘッジの一般化と自己資金制約の定式化。
+- [Angeris et al. (2022): A primer on perpetuals](https://arxiv.org/abs/2209.03307)  
+  Perpetual 契約での Funding と価格関係の理論整理。
 
-### 9.2 Perpetual/Funding の理論
+### 9.2 第2章「連続時間モデルと最小分散ヘッジ比率」
 
-- [Angeris, Chitra, Evans, Lorig (2022), *A primer on perpetuals*](https://arxiv.org/abs/2209.03307)  
-  パーペチュアル契約の資金調達レートを無裁定で導出する理論的整理。
-- [Ackerer, Hugonnier, Jermann (2023/2024), *Perpetual Futures Pricing*](https://arxiv.org/abs/2310.11771)  
-  線形・逆数・quanto など複数タイプの perpetual を統一的に価格付け。
-- [Kim, Park (2025), *Designing funding rates for perpetual futures in cryptocurrency markets*](https://arxiv.org/abs/2506.08573)  
-  Funding 設計そのものを理論対象化し、BSDE ベースで整合条件を議論。
-- [BIS Working Papers No 1087, *Crypto carry*](https://www.bis.org/publ/work1087.htm)  
-  先物基差（carry）の実証分析。収益源泉とクラッシュ予測との関係を定量的に提示。
+- [Ederington (1979): The hedging performance of the new futures markets](https://econpapers.repec.org/article/blajfinan/v_3a34_3ay_3a1979_3ai_3a1_3ap_3a157-70.htm)  
+  最小分散ヘッジ比率の実証的ベンチマーク。
+- [Myers and Thompson (1989): Generalized Optimal Hedge Ratio Estimation](https://ideas.repec.org/a/oup/ajagec/v71y1989i4p858-868..html)  
+  単純回帰以外も含む一般化ヘッジ比率推定。
+- [Aldrich: Hedging and minimum-variance hedge ratio (Lecture Notes)](https://ealdrich.github.io/Teaching/Econ236/LectureNotes/hedging.html)  
+  $h^*=\rho\sigma_S/\sigma_F$ の導出を確認しやすい講義ノート。
 
-### 9.3 実務ドキュメント（Funding計算・データ取得）
+### 9.3 第3章「現物×PerpのPnL分解」
 
-- [Bybit Help Center: *Funding Fee Calculation*](https://www.bybit.com/en/help-center/article/Funding-fee-calculation/)  
-  取引所実装での Funding 計算式と、契約種別ごとの差分を確認できる。
-- [Deribit Support: *Inverse Perpetual*](https://support.deribit.com/hc/en-us/articles/31424954847133-Inverse-Perpetual)  
-  Premium から Funding を作る実務式（ダンパー・上限下限を含む）を明示。
-- [Deribit API: *public/get_funding_rate_history*](https://docs.deribit.com/api-reference/market-data/public-get_funding_rate_history)  
-  バックテスト用に Funding 時系列を取得する API 仕様。
-- [Binance Academy: *What Are Funding Rates in Crypto Markets?*](https://academy.binance.com/en/articles/what-are-funding-rates-in-crypto-markets)  
-  Funding の直感的説明と、ロング/ショートの受払方向の確認に有用。
+- [Angeris et al. (2022): A primer on perpetuals](https://arxiv.org/abs/2209.03307)  
+  Perp の無裁定条件から PnL 構造を読む基礎。
+- [Ackerer et al. (2023/2024): Perpetual Futures Pricing](https://arxiv.org/abs/2310.11771)  
+  線形/逆数/quanto 契約まで含めた価格付け統一モデル。
+- [Deribit: Inverse Perpetual（契約とFunding計算）](https://support.deribit.com/hc/en-us/articles/31424954847133-Inverse-Perpetual)  
+  実務式での Funding と premium のつながりを確認。
 
-### 9.4 補助教材（デリバティブ講義スライド）
+### 9.4 第4章「基差とFundingの確率モデル」
 
-- [John C. Hull, *Options, Futures, and Other Derivatives* Slides](https://www-2.rotman.utoronto.ca/~hull/ofodslides/index.html)  
-  先物・裁定・ヘッジ比率の標準的な講義スライド。実務向け復習資料として有用。
+- [Kim, Park (2025): Designing funding rates for perpetual futures in cryptocurrency markets](https://arxiv.org/abs/2506.08573)  
+  Funding 設計を理論モデルとして扱う最新研究。
+- [BIS Working Paper 1087: Crypto carry](https://www.bis.org/publ/work1087.htm)  
+  基差・キャリーの実証分布と tail 特性の検証。
+- [Deribit API: public/get_funding_rate_history](https://docs.deribit.com/api-reference/market-data/public-get_funding_rate_history)  
+  モデル校正に使う Funding 時系列データ取得。
+
+### 9.5 第5章「清算リスクと生存確率」
+
+- [Black and Cox (1976): A first-passage model for default risk](https://doi.org/10.1111/j.1540-6261.1976.tb01891.x)  
+  境界到達時刻で破綻を扱う first-passage の古典。
+- [Herrmann and Tanré (2015): First-passage time of Brownian motion to a boundary](https://arxiv.org/abs/1501.07060)  
+  到達時刻分布の数値的取り扱いを補強。
+- [Deribit: Liquidations](https://support.deribit.com/hc/en-us/articles/25944769313309-Liquidations)  
+  取引所実装での清算トリガー仕様。
+- [Bybit: Liquidation Price (USDT Contract)](https://www.bybit.com/en/help-center/article/Liquidation-Price-USDT-Contract)  
+  レバレッジと清算価格の実務計算式。
+
+### 9.6 第6章「離散リバランス誤差とコスト」
+
+- [Leland (1985): Option Pricing and Replication with Transactions Costs](https://econpapers.repec.org/article/blajfinan/v_3a40_3ay_3a1985_3ai_3a5_3ap_3a1283-1301.htm)  
+  離散ヘッジと取引コストを同時に扱う古典。
+- [Boyle and Vorst (1992): Option replication in discrete time with transaction costs](https://doi.org/10.1111/j.1540-6261.1992.tb03986.x)  
+  離散時間複製での取引コスト影響を明示。
+- [Whalley and Wilmott (1997): Asymptotic analysis of optimal hedging with transaction costs](https://doi.org/10.1111/1467-9965.00034)  
+  no-trade band による実装可能な近似最適化。
+
+### 9.7 第7章「オプション型デルタニュートラル」
+
+- [Merton (1973)](https://doi.org/10.2307/3003143)  
+  動的ヘッジの理論基盤。
+- [John C. Hull: Options, Futures, and Other Derivatives (Slides)](https://www-2.rotman.utoronto.ca/~hull/ofodslides/index.html)  
+  ガンマ・ベガを含む実務的 Greek 管理の復習資料。
+- [Carr-Madan公式の導出と証明、数値実装（本サイト）](https://tech-yusuke.com/articles/carr_madan_formula)  
+  特性関数法に接続するオプション実装面の補助資料。
+
+### 9.8 第8章「まとめ（戦略全体の再整理）」
+
+- [Ackerer et al. (2023/2024): Perpetual Futures Pricing](https://arxiv.org/abs/2310.11771)  
+  Perp 価格付けの理論骨格。
+- [Kim, Park (2025): Designing funding rates for perpetual futures in cryptocurrency markets](https://arxiv.org/abs/2506.08573)  
+  Funding 過程を設計変数として扱う視点。
+- [Black and Cox (1976): A first-passage model for default risk](https://doi.org/10.1111/j.1540-6261.1976.tb01891.x)  
+  生存制約を持つ設計問題の基礎理論。
