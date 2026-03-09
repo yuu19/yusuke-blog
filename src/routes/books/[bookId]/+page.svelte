@@ -66,7 +66,7 @@
 							>
 								<div class="min-w-0">
 									<p class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
-										Chapter {index + 1}
+										Chapter {chapter.displayNumber ?? index + 1}
 									</p>
 									<p class="truncate text-sm font-medium text-slate-800 transition group-hover:text-cyan-600 dark:text-slate-100 dark:group-hover:text-cyan-300">
 										{chapter.title}

@@ -33,6 +33,7 @@ export interface BookChapterInfo {
 	filename: string;
 	title: string;
 	order: number;
+	displayNumber: number | null;
 	free: boolean;
 }
 
@@ -134,6 +135,7 @@ function getChapters(
 				(hasConfiguredChapters
 					? fallbackOrder
 					: numberedOrder ?? fallbackOrder),
+			displayNumber: numberedOrder,
 			free: chapterMetadata.free === true
 		};
 	});

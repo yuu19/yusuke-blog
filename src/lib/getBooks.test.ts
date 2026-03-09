@@ -23,6 +23,25 @@ describe('getBooks', () => {
 		}
 	});
 
+	it('keeps filename-based display numbers for numbered chapters', () => {
+		const rlBook = getBookBySlug('reinforce-finance-series');
+		expect(rlBook).toBeDefined();
+		if (!rlBook) return;
+
+		expect(rlBook.chapters[0]?.slug).toBe('rl-finance-0');
+		expect(rlBook.chapters.map((chapter) => chapter.displayNumber)).toEqual([
+			0, 1, 2, 3, 4, 5, 6, 7, 8
+		]);
+
+		const stripeBook = getBookBySlug('stripe-connect-hono-sveltekit');
+		expect(stripeBook).toBeDefined();
+		if (!stripeBook) return;
+
+		expect(stripeBook.chapters.map((chapter) => chapter.displayNumber)).toEqual([
+			1, 2, 3, 4, 5, 6, 7
+		]);
+	});
+
 	it('returns only published books from getPublishedBooks()', () => {
 		const books = getBooks();
 		const publishedBooks = getPublishedBooks();

@@ -145,7 +145,7 @@ export const load: PageServerLoad = async ({ params }) => {
 		chapterIndex >= 0 && chapterIndex < book.chapters.length - 1
 			? book.chapters[chapterIndex + 1]
 			: null;
-	const chapterNumber = chapterIndex + 1;
+	const chapterNumber = chapter.displayNumber ?? chapterIndex + 1;
 	const totalChapters = book.chapters.length;
 	const estimatedReadingMinutes = estimateReadingMinutes(markdown);
 	const heightChannel = `${book.slug}:${chapter.slug}`;

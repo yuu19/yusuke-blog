@@ -1,9 +1,10 @@
 title: "Recent Advances in Reinforcement Learning in Finance 解説シリーズ"
-summary: "articles/reinforce-finance.pdf の解説記事（その1〜その8）を1冊にまとめた本です。"
+summary: "articles/reinforce-finance.pdf の解説記事に、強化学習の基礎を整理した Chapter0 を加えて1冊にまとめた本です。"
 topics: ["finance", "math", "reinforcement-learning"]
 published: true
 price: 0
 chapters:
+  - rl-finance-0
   - rl-finance
   - rl-finance-2
   - rl-finance-3
