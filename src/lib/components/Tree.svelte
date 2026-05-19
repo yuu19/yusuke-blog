@@ -3,7 +3,7 @@
   let { tree, activeHeadingIdxs, item, melt } = $props();
 </script>
 
-{#each tree as node}
+{#each tree as node (node.id)}
   <div class="toc-item">
     <a
       use:melt={$item(node.id)}
@@ -19,7 +19,7 @@
     
     {#if node.children && node.children.length > 0}
       <div class="ml-2">
-        <Tree tree={node.children} {activeHeadingIdxs} {item} />
+        <Tree tree={node.children} {activeHeadingIdxs} {item} {melt} />
       </div>
     {/if}
   </div>

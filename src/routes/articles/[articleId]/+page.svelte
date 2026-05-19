@@ -2,7 +2,7 @@
   let { data } = $props();
   import Tag from '$lib/components/Tag.svelte';
   import Tree from '$lib/components/Tree.svelte';
-  import { createTableOfContents } from '@melt-ui/svelte';
+  import { createTableOfContents, melt } from '@melt-ui/svelte';
   import { pushState } from '$app/navigation';
   import { Calendar, Clock, BookOpen } from 'lucide-svelte';
   import { onMount } from 'svelte';
@@ -270,7 +270,7 @@
               <div class="max-h-[calc(100vh-12rem)] overflow-y-auto">
                 		<nav class="toc space-y-1">
 					{#key $headingsTree}
-						<Tree tree={$headingsTree} activeHeadingIdxs={$activeHeadingIdxs} {item} />
+							<Tree tree={$headingsTree} activeHeadingIdxs={$activeHeadingIdxs} {item} {melt} />
 					{/key}
 				</nav>
                 <!-- <nav class="toc space-y-1">
