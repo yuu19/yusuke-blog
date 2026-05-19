@@ -36,6 +36,58 @@ export const entries = () =>
 		.filter(({ metadata }) => metadata.blog_published)
 		.map(({ slug }) => ({ articleId: slug }));
 
+function escapeHtml(value: string) {
+	return value
+		.replace(/&/g, '&amp;')
+		.replace(/</g, '&lt;')
+		.replace(/>/g, '&gt;')
+		.replace(/"/g, '&quot;')
+		.replace(/'/g, '&#39;');
+}
+
+function escapeRegExp(value: string) {
+	return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function renderMarkdownWithDetails(
+	markdownToHtml: (text: string, options?: { embedOrigin?: string }) => string,
+	content: string,
+	options?: { embedOrigin?: string }
+) {
+	const replacements = new Map<string, string>();
+	let blockIndex = 0;
+
+	const withTokens = content.replace(
+		/<details>\s*\n<summary>([\s\S]*?)<\/summary>\s*\n([\s\S]*?)\n<\/details>/g,
+		(_, summary: string, inner: string) => {
+			const token = `__DETAILS_BLOCK_${blockIndex}__`;
+			blockIndex += 1;
+			const innerHtml = markdownToHtml(inner.trim(), options);
+			const detailsHtml = [
+				'<details class="article-details">',
+				`<summary>${escapeHtml(summary.trim())}</summary>`,
+				`<div class="article-details__content">${innerHtml}</div>`,
+				'</details>'
+			].join('');
+			replacements.set(token, detailsHtml);
+			return token;
+		}
+	);
+
+	let htmlContent = markdownToHtml(withTokens, options);
+
+	for (const [token, detailsHtml] of replacements) {
+		const paragraphTokenPattern = new RegExp(
+			`<p[^>]*>\\s*${escapeRegExp(token)}\\s*<\\/p>`,
+			'g'
+		);
+		htmlContent = htmlContent.replace(paragraphTokenPattern, detailsHtml);
+		htmlContent = htmlContent.replaceAll(token, detailsHtml);
+	}
+
+	return htmlContent;
+}
+
 export async function load({ params }: LoadParams) {
 	const { articleId } = params;
 	//const filePath = path.resolve('articles', articleFolderName, `${articleId}.md`);
@@ -57,7 +109,7 @@ export async function load({ params }: LoadParams) {
 
 	const parsedMatter = matter(fileContent); //メタデータと本文を分離してdata, contentに格納
 	const markdownToHtml = await getZennMarkdownToHtml();
-	const htmlContent = markdownToHtml(parsedMatter.content, {
+	const htmlContent = renderMarkdownWithDetails(markdownToHtml, parsedMatter.content, {
 		embedOrigin: 'https://embed.zenn.studio',
 	});
 	// const toc = parseToc(htmlContent);

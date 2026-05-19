@@ -95,6 +95,53 @@
   };
 </script>
 
+<style>
+  :global(.markdown-body details.article-details) {
+    margin: 1.5rem 0;
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    border-radius: 1rem;
+    background: rgba(248, 250, 252, 0.75);
+    overflow: hidden;
+  }
+
+  :global(.dark .markdown-body details.article-details) {
+    border-color: rgba(71, 85, 105, 0.8);
+    background: rgba(15, 23, 42, 0.55);
+  }
+
+  :global(.markdown-body details.article-details > summary) {
+    cursor: pointer;
+    list-style: none;
+    padding: 0.9rem 1rem;
+    font-weight: 700;
+  }
+
+  :global(.markdown-body details.article-details > summary::-webkit-details-marker) {
+    display: none;
+  }
+
+  :global(.markdown-body details.article-details > summary::before) {
+    content: '▶';
+    display: inline-block;
+    margin-right: 0.55rem;
+    font-size: 0.8rem;
+    transition: transform 0.18s ease;
+  }
+
+  :global(.markdown-body details.article-details[open] > summary::before) {
+    transform: rotate(90deg);
+  }
+
+  :global(.markdown-body details.article-details > .article-details__content) {
+    border-top: 1px solid rgba(148, 163, 184, 0.2);
+    padding: 0.25rem 1rem 1rem;
+  }
+
+  :global(.dark .markdown-body details.article-details > .article-details__content) {
+    border-top-color: rgba(71, 85, 105, 0.65);
+  }
+</style>
+
 <svelte:head>
   <title>{data.metadata.title}</title>
   <meta name="description" content={data.metadata.description} />
@@ -171,7 +218,7 @@
 
       <!-- Tags -->
       <div class="flex flex-wrap justify-center gap-2 pt-2 sm:pt-4">
-        {#each data.metadata.topics as topic}
+        {#each data.metadata.topics as topic (topic)}
           <Tag {topic} />
         {/each}
       </div>
@@ -196,14 +243,14 @@
                       <span>記事を読み込み中...</span>
                     </div>
                   </div>
-                {:else if embedError}
-                  <div class="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4 mb-6">
-                    <p class="text-yellow-800 dark:text-yellow-200 text-sm">
-                      一部の埋め込みコンテンツが正常に読み込まれませんでした。
-                    </p>
-                  </div>
-                  {@html data.htmlContent}
                 {:else}
+                  {#if embedError}
+                    <div class="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4 mb-6">
+                      <p class="text-yellow-800 dark:text-yellow-200 text-sm">
+                        一部の埋め込みコンテンツが正常に読み込まれませんでした。
+                      </p>
+                    </div>
+                  {/if}
                   {@html data.htmlContent}
                 {/if}
               </div>
