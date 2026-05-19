@@ -8,7 +8,8 @@ test.describe('blog e2e', () => {
 		const firstArticleCard = page.locator('a[href^="/articles/"]').first();
 		await expect(firstArticleCard).toBeVisible();
 
-		const cardTitle = (await firstArticleCard.getByRole('heading').first().textContent())?.trim() ?? '';
+		const cardTitle =
+			(await firstArticleCard.getByRole('heading').first().textContent())?.trim() ?? '';
 		await firstArticleCard.click();
 
 		await expect(page).toHaveURL(/\/articles\/[^/]+$/);
@@ -36,5 +37,16 @@ test.describe('blog e2e', () => {
 		await page.getByRole('button', { name: 'フィルターをリセット' }).click();
 		await expect(searchInput).toHaveValue('');
 		await expect(hitCount).not.toContainText('0件ヒット');
+	});
+
+	test('profile links to SubTrack service page', async ({ page }) => {
+		await page.goto('/profiles');
+		await page.getByRole('link', { name: /SubTrack を見る/ }).click();
+
+		await expect(page).toHaveURL(/\/services\/subtrack$/);
+		await expect(page.getByRole('heading', { level: 1, name: 'SubTrack' })).toBeVisible();
+
+		const serviceLink = page.getByRole('link', { name: 'SubTrackを開く' }).first();
+		await expect(serviceLink).toHaveAttribute('href', /^https:\/\/subtracknotify\.com\/?$/);
 	});
 });

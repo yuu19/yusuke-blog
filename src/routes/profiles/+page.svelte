@@ -1,5 +1,6 @@
 <script>
-  import { Github, ExternalLink } from 'lucide-svelte';
+  import { resolve } from '$app/paths';
+  import { AppWindow, ArrowRight, Github, ExternalLink } from 'lucide-svelte';
   import { githubConfig } from '$lib/github.config';
 </script>
 
@@ -26,13 +27,39 @@
     </header>
 
     <main class="space-y-16">
+      <section>
+        <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Works</h2>
+        <a
+          href={resolve('/services/subtrack', {})}
+          class="group block rounded-lg border border-cyan-100 bg-white p-8 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-cyan-200 hover:shadow-xl focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-cyan-400"
+        >
+          <div class="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+            <div class="flex items-start gap-4">
+              <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-cyan-50 text-cyan-700">
+                <AppWindow class="h-7 w-7" />
+              </div>
+              <div>
+                <p class="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-700">Service</p>
+                <h3 class="mt-2 text-2xl font-bold text-gray-900">SubTrack</h3>
+                <p class="mt-2 max-w-2xl text-gray-600">
+                  サブスクの支払日、金額、通知、支出分析をまとめて扱うために作ったWebアプリです。
+                </p>
+              </div>
+            </div>
+            <span class="inline-flex items-center gap-2 font-semibold text-cyan-700 transition-colors group-hover:text-cyan-900">
+              SubTrack を見る
+              <ArrowRight class="h-5 w-5" />
+            </span>
+          </div>
+        </a>
+      </section>
 
             <!-- Contributions Link Section -->
       <section>
         <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Contributions</h2>
         <div class="bg-white rounded-2xl shadow-lg p-8 text-center">
           <a
-            href="/contributions"
+            href={resolve('/contributions', {})}
             class="inline-flex items-center justify-center px-6 py-3 rounded-full bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-colors"
           >
             Contributionsを見る
