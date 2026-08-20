@@ -55,7 +55,7 @@ describe('getBooks', () => {
 		expect(oauthBook).toBeDefined();
 		if (!oauthBook) return;
 
-		expect(oauthBook.metadata.published).toBe(false);
+		expect(oauthBook.metadata.published).toBe(true);
 		expect(oauthBook.parts).toHaveLength(6);
 		expect(oauthBook.chapters).toHaveLength(28);
 		expect(oauthBook.parts.flatMap((part) => part.chapters.map((chapter) => chapter.slug))).toEqual(

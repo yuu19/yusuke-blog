@@ -1,7 +1,7 @@
 title: "OAuth 2.1のしくみと実装 — Better Auth OAuth Providerをソースから読み解く"
 summary: "OAuthの役割分担からAuthorization Code + PKCE、Refresh Token、Client Credentials、Device Flow、OIDC、BFF、DPoPまでを、React・Hono・Better Authの実装とデータベース観測を往復しながら学びます。"
 topics: ["oauth", "openid-connect", "better-auth", "react", "hono"]
-published: false
+published: true
 price: 0
 parts:
   - title: "Part 1 OAuthを構成要素から組み立てる"
