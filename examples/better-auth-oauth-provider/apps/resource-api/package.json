@@ -1,0 +1,33 @@
+{
+  "name": "@oauth-lab/resource-api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/node.ts",
+    "start": "tsx src/node.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "db:generate": "drizzle-kit generate --config drizzle.config.ts",
+    "db:migrate": "drizzle-kit migrate --config drizzle.config.ts"
+  },
+  "dependencies": {
+    "@better-auth/core": "1.7.1",
+    "@better-auth/oauth-provider": "1.7.1",
+    "@better-auth/utils": "0.4.2",
+    "@hono/node-server": "2.0.5",
+    "@oauth-lab/protocol": "workspace:*",
+    "better-auth": "1.7.1",
+    "drizzle-orm": "0.45.2",
+    "hono": "4.12.25",
+    "pg": "8.21.0"
+  },
+  "devDependencies": {
+    "@types/node": "24.10.0",
+    "@types/pg": "8.15.6",
+    "drizzle-kit": "0.31.10",
+    "tsx": "4.21.0",
+    "typescript": "6.0.3",
+    "vitest": "4.1.10"
+  }
+}

@@ -12,6 +12,13 @@ interface RawBookMetadata {
 	published?: unknown;
 	price?: unknown;
 	chapters?: unknown;
+	parts?: unknown;
+}
+
+interface RawBookPartMetadata {
+	title?: unknown;
+	summary?: unknown;
+	chapters?: unknown;
 }
 
 interface RawChapterMetadata {
@@ -25,6 +32,13 @@ export interface BookMetadata {
 	topics: string[];
 	published: boolean;
 	price: number;
+	chapters: string[];
+	parts: BookPartMetadata[];
+}
+
+export interface BookPartMetadata {
+	title: string;
+	summary: string;
 	chapters: string[];
 }
 
@@ -40,6 +54,13 @@ export interface BookChapterInfo {
 export interface BookInfo {
 	slug: string;
 	metadata: BookMetadata;
+	parts: BookPartInfo[];
+	chapters: BookChapterInfo[];
+}
+
+export interface BookPartInfo {
+	title: string;
+	summary: string;
 	chapters: BookChapterInfo[];
 }
 
@@ -52,16 +73,47 @@ function parseYamlConfig(configText: string): RawBookMetadata {
 	return data as RawBookMetadata;
 }
 
+function normalizeStringArray(value: unknown): string[] {
+	if (!Array.isArray(value)) return [];
+
+	return value
+		.filter((item): item is string => typeof item === 'string')
+		.map((item) => item.trim())
+		.filter(Boolean);
+}
+
+function normalizeBookParts(value: unknown): BookPartMetadata[] {
+	if (!Array.isArray(value)) return [];
+
+	return value.flatMap((candidate) => {
+		if (!candidate || typeof candidate !== 'object') return [];
+
+		const part = candidate as RawBookPartMetadata;
+		if (typeof part.title !== 'string' || part.title.trim().length === 0) return [];
+
+		return [
+			{
+				title: part.title.trim(),
+				summary: typeof part.summary === 'string' ? part.summary.trim() : '',
+				chapters: normalizeStringArray(part.chapters)
+			}
+		];
+	});
+}
+
+function uniqueChapterSlugs(chapterSlugs: string[]): string[] {
+	return [...new Set(chapterSlugs)];
+}
+
 function normalizeBookMetadata(data: RawBookMetadata): BookMetadata {
 	const topics = Array.isArray(data.topics)
 		? data.topics.filter((topic): topic is string => typeof topic === 'string')
 		: [];
-	const chapters = Array.isArray(data.chapters)
-		? data.chapters
-				.filter((chapter): chapter is string => typeof chapter === 'string')
-				.map((chapter) => chapter.trim())
-				.filter(Boolean)
-		: [];
+	const parts = normalizeBookParts(data.parts);
+	const flatPartChapters = parts.flatMap((part) => part.chapters);
+	const chapters = uniqueChapterSlugs(
+		flatPartChapters.length > 0 ? flatPartChapters : normalizeStringArray(data.chapters)
+	);
 
 	return {
 		title:
@@ -75,7 +127,8 @@ function normalizeBookMetadata(data: RawBookMetadata): BookMetadata {
 		topics,
 		published: data.published === true,
 		price: typeof data.price === 'number' ? data.price : 0,
-		chapters
+		chapters,
+		parts
 	};
 }
 
@@ -148,6 +201,42 @@ function getChapters(
 	return chapters;
 }
 
+function getBookParts(
+	partMetadata: BookPartMetadata[],
+	chapters: BookChapterInfo[]
+): BookPartInfo[] {
+	if (partMetadata.length === 0) return [];
+
+	const chapterBySlug = new Map(chapters.map((chapter) => [chapter.slug, chapter]));
+	const assignedChapterSlugs = new Set<string>();
+	const parts = partMetadata.map((part) => ({
+		title: part.title,
+		summary: part.summary,
+		chapters: part.chapters.flatMap((slug) => {
+			if (assignedChapterSlugs.has(slug)) return [];
+
+			const chapter = chapterBySlug.get(slug);
+			if (!chapter) return [];
+
+			assignedChapterSlugs.add(slug);
+			return [chapter];
+		})
+	}));
+	const ungroupedChapters = chapters.filter(
+		(chapter) => !assignedChapterSlugs.has(chapter.slug)
+	);
+
+	if (ungroupedChapters.length > 0) {
+		parts.push({
+			title: 'その他',
+			summary: 'config.yamlのpartsに含まれていないチャプター',
+			chapters: ungroupedChapters
+		});
+	}
+
+	return parts;
+}
+
 function readBook(bookSlug: string): BookInfo | null {
 	const bookDirectory = getBookDirectory(bookSlug);
 	const configPath = CONFIG_FILENAMES.map((filename) => path.join(bookDirectory, filename)).find(
@@ -161,10 +250,12 @@ function readBook(bookSlug: string): BookInfo | null {
 	const rawConfig = fs.readFileSync(configPath, 'utf8');
 	const metadata = normalizeBookMetadata(parseYamlConfig(rawConfig));
 	const chapters = getChapters(bookSlug, metadata.chapters);
+	const parts = getBookParts(metadata.parts, chapters);
 
 	return {
 		slug: bookSlug,
 		metadata,
+		parts,
 		chapters
 	};
 }

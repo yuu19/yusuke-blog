@@ -50,6 +50,21 @@ describe('getBooks', () => {
 		expect(publishedBooks.every((book) => book.metadata.published)).toBe(true);
 	});
 
+	it('flattens part chapters into one canonical navigation order', () => {
+		const oauthBook = getBookBySlug('oauth-2-1-better-auth-provider-internals');
+		expect(oauthBook).toBeDefined();
+		if (!oauthBook) return;
+
+		expect(oauthBook.metadata.published).toBe(false);
+		expect(oauthBook.parts).toHaveLength(6);
+		expect(oauthBook.chapters).toHaveLength(28);
+		expect(oauthBook.parts.flatMap((part) => part.chapters.map((chapter) => chapter.slug))).toEqual(
+			oauthBook.chapters.map((chapter) => chapter.slug)
+		);
+		expect(oauthBook.chapters[0]?.slug).toBe('roadmap');
+		expect(oauthBook.chapters.at(-1)?.slug).toBe('conformance-operations');
+	});
+
 	it('can resolve chapter metadata and markdown by slug', () => {
 		const [book] = getPublishedBooks();
 		expect(book).toBeDefined();

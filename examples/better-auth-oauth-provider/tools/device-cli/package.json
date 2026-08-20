@@ -1,0 +1,24 @@
+{
+  "name": "@oauth-lab/device-cli",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "tsx src/index.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "@better-auth/core": "1.7.1",
+    "@better-auth/oauth-provider": "1.7.1",
+    "@better-auth/utils": "0.4.2",
+    "@oauth-lab/protocol": "workspace:*",
+    "better-auth": "1.7.1"
+  },
+  "devDependencies": {
+    "@types/node": "24.10.0",
+    "tsx": "4.21.0",
+    "typescript": "6.0.3",
+    "vitest": "4.1.10"
+  }
+}

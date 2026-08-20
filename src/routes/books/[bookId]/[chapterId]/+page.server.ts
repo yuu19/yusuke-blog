@@ -1,4 +1,5 @@
 import { error } from '@sveltejs/kit';
+import { dev } from '$app/environment';
 import {
 	getBookBySlug,
 	getBookChapterBySlug,
@@ -123,7 +124,7 @@ export const entries: EntryGenerator = () =>
 export const load: PageServerLoad = async ({ params }) => {
 	const book = getBookBySlug(params.bookId);
 
-	if (!book || !book.metadata.published) {
+	if (!book || (!book.metadata.published && !dev)) {
 		error(404, 'Book not found');
 	}
 
@@ -157,6 +158,7 @@ export const load: PageServerLoad = async ({ params }) => {
 
 	return {
 		book,
+		isDraft: !book.metadata.published,
 		chapter,
 		previousChapter,
 		nextChapter,

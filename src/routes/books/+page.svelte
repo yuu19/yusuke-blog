@@ -1,8 +1,11 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
 	let totalCount = $derived(data.books.length);
+	let publishedCount = $derived(data.books.filter((book) => book.metadata.published).length);
+	let draftCount = $derived(totalCount - publishedCount);
 </script>
 
 <svelte:head>
@@ -20,9 +23,15 @@
 				本一覧
 			</h1>
 			<p class="text-sm text-slate-600 dark:text-slate-400">
-				全{totalCount}冊の本を公開しています。
+				{publishedCount}冊の本を公開しています。{#if data.draftPreviewEnabled && draftCount > 0}開発プレビュー中のドラフトは{draftCount}冊です。{/if}
 			</p>
 		</header>
+
+		{#if data.draftPreviewEnabled && draftCount > 0}
+			<div class="rounded-2xl border border-amber-300 bg-amber-50 px-5 py-4 text-sm text-amber-900 dark:border-amber-700 dark:bg-amber-950/40 dark:text-amber-100" role="status">
+				<strong>開発環境限定:</strong> DRAFTバッジのBookは本番ビルドと公開一覧に含まれません。
+			</div>
+		{/if}
 
 		{#if totalCount > 0}
 			<ul class="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
@@ -30,12 +39,12 @@
 					<li class="flex">
 						<a
 							rel="prefetch"
-							href={`/books/${book.slug}`}
+							href={resolve('/books/[bookId]', { bookId: book.slug })}
 							class="group flex w-full flex-col rounded-3xl border border-slate-200 bg-white/90 p-6 shadow-sm ring-1 ring-slate-100 backdrop-blur-sm transition duration-200 hover:-translate-y-1 hover:shadow-xl dark:border-slate-700 dark:bg-slate-900/70 dark:ring-slate-800"
 						>
 							<div class="flex items-start justify-between gap-4">
-								<span class="inline-flex rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300">
-									BOOK
+								<span class={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${book.metadata.published ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300' : 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-200'}`}>
+									{book.metadata.published ? 'BOOK' : 'DRAFT'}
 								</span>
 								<span class="text-xs font-medium text-slate-500 dark:text-slate-400">
 									{book.chapters.length} chapters

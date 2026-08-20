@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "altText": "HonoからBetter Auth Providerを通りAuthorization Code tableへ至るcall pathと不変条件の図",
+  "logical": {
+    "width": 1280,
+    "height": 720
+  },
+  "output": {
+    "width": 2560,
+    "height": 1440,
+    "scale": 2,
+    "format": "png",
+    "colorSpace": "sRGB",
+    "bitDepth": 8,
+    "opaque": true,
+    "bytes": 187238,
+    "sha256": "b3529074f40186c0c8e0cfd96e63911926aba089246ca8df870751a8eee94da6"
+  },
+  "render": {
+    "canonical": true,
+    "font": "Noto Sans JP",
+    "fontId": "noto-sans-jp",
+    "fontWeights": "100-900",
+    "fontSha256": "6fd94964d1990baa2a392cea7a036683d2b80b9dfd590cb3918e8dab98d8e188",
+    "fontVerified": true,
+    "theme": "midnight",
+    "optimized": true,
+    "networkAllowed": false,
+    "fontFallbackAllowed": false,
+    "tailwindVersion": "3.4.19",
+    "playwrightVersion": "1.62.0"
+  }
+}

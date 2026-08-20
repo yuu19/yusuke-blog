@@ -1,0 +1,46 @@
+{
+  "name": "@oauth-lab/auth-server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node dev.mjs",
+    "dev:server": "tsx watch src/server/node.ts",
+    "dev:ui": "vite --host 127.0.0.1 --port 4100 --strictPort",
+    "build": "vite build",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "db:auth-schema": "OAUTH_LAB_SCHEMA_GENERATION=true auth generate --config src/server/auth.ts --adapter drizzle --dialect postgresql --output src/server/db/schema.ts --yes",
+    "db:generate": "drizzle-kit generate --config drizzle.config.ts",
+    "db:migrate": "drizzle-kit migrate --config drizzle.config.ts",
+    "seed": "tsx src/server/seed.ts"
+  },
+  "dependencies": {
+    "@better-auth/core": "1.7.1",
+    "@better-auth/drizzle-adapter": "1.7.1",
+    "@better-auth/oauth-provider": "1.7.1",
+    "@better-auth/utils": "0.4.2",
+    "@hono/node-server": "2.0.5",
+    "@oauth-lab/protocol": "workspace:*",
+    "better-auth": "1.7.1",
+    "drizzle-orm": "0.45.2",
+    "hono": "4.12.25",
+    "jose": "6.2.3",
+    "pg": "8.21.0",
+    "react": "19.2.7",
+    "react-dom": "19.2.7"
+  },
+  "devDependencies": {
+    "@types/node": "24.10.0",
+    "@types/pg": "8.15.6",
+    "@types/react": "19.2.17",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "6.0.1",
+    "auth": "1.7.1",
+    "drizzle-kit": "0.31.10",
+    "tsx": "4.21.0",
+    "typescript": "6.0.3",
+    "vite": "8.1.5",
+    "vitest": "4.1.10"
+  }
+}

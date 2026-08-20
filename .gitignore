@@ -26,3 +26,12 @@ vite.config.ts.timestamp-*
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+
+# OAuth book lab (generated locally)
+/examples/better-auth-oauth-provider/.local/
+/examples/better-auth-oauth-provider/**/dist/
+/examples/better-auth-oauth-provider/**/.next/
+/examples/better-auth-oauth-provider/**/.svelte-kit/
+/examples/better-auth-oauth-provider/**/*.tsbuildinfo
+/examples/better-auth-oauth-provider/test-results/
+/examples/better-auth-oauth-provider/playwright-report/

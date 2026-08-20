@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import { ArrowLeft, ArrowRight, BookOpen } from 'lucide-svelte';
 	import type { PageProps } from './$types';
 
@@ -195,9 +196,14 @@
 
 <section class="bg-gradient-to-br from-slate-50 via-white to-sky-100/40 dark:from-gray-950 dark:via-slate-900 dark:to-sky-950">
 	<div class="mx-auto flex min-h-screen w-full max-w-6xl flex-col gap-8 px-4 py-12 sm:px-6 lg:px-8">
+		{#if data.isDraft}
+			<div class="rounded-2xl border border-amber-300 bg-amber-50 px-5 py-4 text-sm text-amber-900 dark:border-amber-700 dark:bg-amber-950/40 dark:text-amber-100" role="status">
+				<strong>DRAFTプレビュー:</strong> この章は開発環境だけで表示されています。
+			</div>
+		{/if}
 		<header class="space-y-4">
 			<a
-				href={`/books/${data.book.slug}`}
+				href={resolve('/books/[bookId]', { bookId: data.book.slug })}
 				class="inline-flex items-center gap-2 text-sm font-medium text-slate-600 transition hover:text-slate-900 dark:text-slate-300 dark:hover:text-slate-100"
 			>
 				<ArrowLeft class="h-4 w-4" />
@@ -283,7 +289,10 @@
 				<a
 					rel="prefetch"
 					data-sveltekit-preload-data="tap"
-					href={`/books/${data.book.slug}/${data.nextChapter.slug}`}
+					href={resolve('/books/[bookId]/[chapterId]', {
+						bookId: data.book.slug,
+						chapterId: data.nextChapter.slug
+					})}
 					class="group flex items-center justify-between rounded-2xl border border-transparent bg-gradient-to-r from-sky-600 to-cyan-500 px-5 py-4 text-white shadow-lg transition hover:from-sky-500 hover:to-cyan-400"
 				>
 					<div class="min-w-0">
@@ -298,7 +307,10 @@
 				{#if data.previousChapter}
 					<a
 						rel="prefetch"
-						href={`/books/${data.book.slug}/${data.previousChapter.slug}`}
+						href={resolve('/books/[bookId]/[chapterId]', {
+							bookId: data.book.slug,
+							chapterId: data.previousChapter.slug
+						})}
 						class="group flex items-center justify-between rounded-2xl border border-slate-200 bg-white/80 px-4 py-3 transition hover:border-sky-300 dark:border-slate-700 dark:bg-slate-800/70 dark:hover:border-sky-500/60"
 					>
 						<div class="min-w-0">
@@ -318,7 +330,7 @@
 				{/if}
 
 				<a
-					href={`/books/${data.book.slug}`}
+					href={resolve('/books/[bookId]', { bookId: data.book.slug })}
 					class="flex items-center justify-center rounded-2xl border border-slate-200 bg-white/80 px-4 py-3 text-sm font-medium text-slate-700 transition hover:border-sky-300 hover:text-sky-700 dark:border-slate-700 dark:bg-slate-800/70 dark:text-slate-200 dark:hover:border-sky-500/60 dark:hover:text-sky-300"
 				>
 					本の目次へ戻る
@@ -327,7 +339,10 @@
 				{#if data.nextChapter}
 					<a
 						rel="prefetch"
-						href={`/books/${data.book.slug}/${data.nextChapter.slug}`}
+						href={resolve('/books/[bookId]/[chapterId]', {
+							bookId: data.book.slug,
+							chapterId: data.nextChapter.slug
+						})}
 						class="group flex items-center justify-between rounded-2xl border border-slate-200 bg-white/80 px-4 py-3 transition hover:border-sky-300 dark:border-slate-700 dark:bg-slate-800/70 dark:hover:border-sky-500/60"
 					>
 						<div class="min-w-0">

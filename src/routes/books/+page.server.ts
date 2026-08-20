@@ -1,10 +1,12 @@
-import { getPublishedBooks } from '$lib/getBooks';
+import { dev } from '$app/environment';
+import { getBooks, getPublishedBooks } from '$lib/getBooks';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
-	const books = getPublishedBooks();
+	const books = dev ? getBooks() : getPublishedBooks();
 
 	return {
-		books
+		books,
+		draftPreviewEnabled: dev
 	};
 };

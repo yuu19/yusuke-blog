@@ -1,0 +1,28 @@
+{
+  "betterAuth": {
+    "version": "1.7.1",
+    "tag": "v1.7.1",
+    "commit": "2344536054f9164ca5d1670c270d299049ee233e",
+    "repository": "https://github.com/better-auth/better-auth",
+    "files": [
+      { "path": "packages/oauth-provider/src/oauth.ts", "sha256": "c41068a564e452a37bdfafaa99121b5a9f927372af516ced1f5d5b05d7ac35b6" },
+      { "path": "packages/oauth-provider/src/authorize.ts", "sha256": "3d548499044a7e49bb03ba784725fd85df8136a8d6ade3e69b4b7457c37d1dd1" },
+      { "path": "packages/oauth-provider/src/consent.ts", "sha256": "ff1a4dedacff559763459bf98841e845b88be2ddf3309caffd87f8d28d5189c5" },
+      { "path": "packages/oauth-provider/src/token.ts", "sha256": "c767286ef0d52a0a0ea5c4f83c195a42d34bf599a317a2be634669fcf9853606" },
+      { "path": "packages/oauth-provider/src/introspect.ts", "sha256": "d1634cf0f174393c3fb53f135507d8219eb488d31f828c3d7b7d185ff6747d19" },
+      { "path": "packages/oauth-provider/src/revoke.ts", "sha256": "8ca7a6ff8f6bf9e30cb3276d024d706d6ddf1fdb9933fad80f2658a3cac59ecf" },
+      { "path": "packages/oauth-provider/src/device-code.ts", "sha256": "64da90aa56ee8fb1d2c7889f8aeab5b40801bd870da47d8961a4e1e2745950c1" },
+      { "path": "packages/oauth-provider/src/schema.ts", "sha256": "4080dd12dbe6449353d537f79e70ace4105d3eb4b3f43919081d766e12abc027" },
+      { "path": "packages/oauth-provider/src/signed-query.ts", "sha256": "4914cb4f4b477eb688120ee9faa24caea3499c62ae90f05e81496d8b9f75fe07" },
+      { "path": "packages/oauth-provider/src/oauthClient/index.ts", "sha256": "165dcbfc5723d8298968206c797dc07c96d7844e58480d73f436e0b347c245d9" },
+      { "path": "packages/oauth-provider/src/oauthResource/index.ts", "sha256": "a357c3e54ea8de1b10cb60bf7232bdeeb96007a1c3dcfb9191052a23d816d94d" },
+      { "path": "packages/oauth-provider/src/client.ts", "sha256": "b24ec3cc047aadb241b992484fec41c917078e388d55e8a732d24e57ca4b2cfa" },
+      { "path": "docs/content/docs/plugins/oauth-provider.mdx", "sha256": "436ea551391ac7203bbcb8f212d7c6980195ae118f62f7e0c4fb2f2ffdeff814" }
+    ]
+  },
+  "protocolBaseline": {
+    "oauth21Draft": "draft-ietf-oauth-v2-1-15",
+    "securityBcp": "RFC 9700",
+    "checkedOn": "2026-08-20"
+  }
+}

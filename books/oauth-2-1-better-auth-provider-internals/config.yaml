@@ -1,0 +1,24 @@
+title: "OAuth 2.1のしくみと実装 — Better Auth OAuth Providerをソースから読み解く"
+summary: "OAuthの役割分担からAuthorization Code + PKCE、Refresh Token、Client Credentials、Device Flow、OIDC、BFF、DPoPまでを、React・Hono・Better Authの実装とデータベース観測を往復しながら学びます。"
+topics: ["oauth", "openid-connect", "better-auth", "react", "hono"]
+published: false
+price: 0
+parts:
+  - title: "Part 1 OAuthを構成要素から組み立てる"
+    summary: "用語、信頼境界、実験環境、Authorization Serverの土台を揃えます。"
+    chapters: ["roadmap", "roles-trust-boundaries", "lab-architecture", "provider-setup"]
+  - title: "Part 2 Authorization Code + PKCEを一周する"
+    summary: "認可要求からResource APIまでを追い、失敗系で安全性を確かめます。"
+    chapters: ["authorization-request", "login-session", "consent-scopes", "authorization-code", "pkce-token-exchange", "resource-api-introspection", "attack-tests"]
+  - title: "Part 3 TokenとGrantを使い分ける"
+    summary: "Refresh、JWT、機械間通信、入力制約のある端末を比較します。"
+    chapters: ["refresh-token", "refresh-rotation", "jwt-access-token", "client-credentials", "device-authorization", "grant-selection"]
+  - title: "Part 4 OAuthの上にOIDCを重ねる"
+    summary: "認可と認証を分離し、ID Token、UserInfo、Logoutを検証します。"
+    chapters: ["oauth-and-oidc", "id-token-validation", "userinfo-discovery", "logout"]
+  - title: "Part 5 実運用の境界を強くする"
+    summary: "BFF、Client認証、登録、DPoP、PARの設計境界を扱います。"
+    chapters: ["bff", "client-authentication", "dynamic-client-registration", "dpop", "par"]
+  - title: "Part 6 配備と適合性を検証する"
+    summary: "Cloudflareへの移行と、仕様適合性を継続して示す方法を整理します。"
+    chapters: ["cloudflare", "conformance-operations"]

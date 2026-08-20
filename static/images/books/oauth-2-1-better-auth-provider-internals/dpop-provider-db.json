@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "altText": "Better Auth verifyAccessTokenRequestがDPoP proofとTokenと実HTTP requestをDB replay storeまで検証する図",
+  "logical": {
+    "width": 1280,
+    "height": 720
+  },
+  "output": {
+    "width": 2560,
+    "height": 1440,
+    "scale": 2,
+    "format": "png",
+    "colorSpace": "sRGB",
+    "bitDepth": 8,
+    "opaque": true,
+    "bytes": 163805,
+    "sha256": "8f5f980bc364186c56f6dca91994db5951f38c7c5eb6268a034c6f8b727b7d48"
+  },
+  "render": {
+    "canonical": true,
+    "font": "Noto Sans JP",
+    "fontId": "noto-sans-jp",
+    "fontWeights": "100-900",
+    "fontSha256": "6fd94964d1990baa2a392cea7a036683d2b80b9dfd590cb3918e8dab98d8e188",
+    "fontVerified": true,
+    "theme": "midnight",
+    "optimized": true,
+    "networkAllowed": false,
+    "fontFallbackAllowed": false,
+    "tailwindVersion": "3.4.19",
+    "playwrightVersion": "1.62.0"
+  }
+}

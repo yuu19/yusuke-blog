@@ -1,0 +1,34 @@
+{
+  "name": "better-auth-oauth-provider-lab",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.17.1",
+  "scripts": {
+    "setup": "node scripts/setup.mjs",
+    "db:up": "docker compose --env-file .local/.env up -d postgres",
+    "db:down": "docker compose --env-file .local/.env down",
+    "db:reset": "docker compose --env-file .local/.env down -v",
+    "db:generate": "pnpm -r --if-present db:generate",
+    "db:migrate": "pnpm -r --if-present db:migrate",
+    "seed": "pnpm --filter @oauth-lab/auth-server seed",
+    "lab:dev": "node scripts/lab-dev.mjs",
+    "typecheck": "pnpm -r --if-present typecheck",
+    "test": "pnpm -r --if-present test",
+    "test:e2e": "playwright test",
+    "device": "pnpm --filter @oauth-lab/device-cli start",
+    "indexer": "pnpm --filter @oauth-lab/indexer start",
+    "indexer:private-key-jwt": "pnpm --filter @oauth-lab/indexer start -- --private-key-jwt"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.62.1",
+    "tsx": "4.21.0",
+    "typescript": "6.0.3",
+    "vitest": "4.1.10"
+  },
+  "pnpm": {
+    "overrides": {
+      "@better-auth/utils": "0.4.2"
+    }
+  }
+}
