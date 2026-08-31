@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "altText": "Training TasksからRaw TracesとPersistent Wikiを経てSkill候補を検証し、Active Skillsだけを更新またはロールバックするWikiSkillの処理フロー",
+  "logical": {
+    "width": 1280,
+    "height": 720
+  },
+  "output": {
+    "width": 2560,
+    "height": 1440,
+    "scale": 2,
+    "format": "png",
+    "colorSpace": "sRGB",
+    "bitDepth": 8,
+    "opaque": true,
+    "bytes": 317019,
+    "sha256": "dea8998e30b310310fe2b3e7f12fa0cae0a01dd13b351217cd8b92a4300861d7"
+  },
+  "render": {
+    "canonical": false,
+    "font": "Noto Sans JP",
+    "fontId": "noto-sans-jp",
+    "fontWeights": "100-900",
+    "fontSha256": "6fd94964d1990baa2a392cea7a036683d2b80b9dfd590cb3918e8dab98d8e188",
+    "fontVerified": true,
+    "theme": "default",
+    "optimized": true,
+    "networkAllowed": false,
+    "fontFallbackAllowed": true,
+    "tailwindVersion": "3.4.19",
+    "playwrightVersion": "1.62.0"
+  }
+}
