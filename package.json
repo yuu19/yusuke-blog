@@ -23,7 +23,7 @@
     "@lucide/svelte": "^0.482.0",
     "@melt-ui/pp": "^0.3.2",
     "@melt-ui/svelte": "^0.86.6",
-    "@pagefind/default-ui": "1.1.0",
+    "@pagefind/default-ui": "1.1.1",
     "@playwright/test": "^1.50.1",
     "@resvg/resvg-js": "^2.6.2",
     "@sveltejs/adapter-auto": "^4.0.0",
