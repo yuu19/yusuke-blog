@@ -34,7 +34,7 @@
     "@tailwindcss/typography": "^0.5.15",
     "@types/eslint": "^9.6.1",
     "@types/markdown-it": "^14.1.2",
-    "@types/node": "^22.13.1",
+    "@types/node": "^22.20.4",
     "autoprefixer": "^10.4.20",
     "bits-ui": "^1.8.0",
     "clsx": "^2.1.1",
