@@ -17,6 +17,7 @@ export interface ArticleInfo {
 	metadata: Metadata;
 }
 
+/** 下書きを含む全記事を返す。公開用の load では getPublishedArticles を使う。 */
 export function getArticles(): ArticleInfo[] {
 	const articlesDirectory = path.resolve(process.cwd(), 'articles');
 	const filenames = fs
@@ -38,4 +39,9 @@ export function getArticles(): ArticleInfo[] {
 		return bDate.valueOf() - aDate.valueOf();
 	});
 	return articles;
+}
+
+/** ブログの公開ページに配信できる記事だけを返す。published は Zenn 用の公開設定。 */
+export function getPublishedArticles(): ArticleInfo[] {
+	return getArticles().filter(({ metadata }) => metadata.blog_published === true);
 }
