@@ -4,6 +4,7 @@
 	import ArticleCard from '$lib/components/ArticleCard.svelte';
 	import ArticlePagination from '$lib/components/ArticlePagination.svelte';
 	import { ARTICLES_PER_PAGE } from '$lib/constants';
+	import { onMount } from 'svelte';
 	import { fly } from 'svelte/transition';
 	import type { PageProps } from './$types';
 
@@ -25,6 +26,11 @@
 		];
 		const uniqueTopics = topics.filter((topic, index) => topics.indexOf(topic) === index);
 		return ['すべて', ...uniqueTopics.sort((a, b) => a.localeCompare(b, 'ja'))];
+	});
+
+	let isHydrated = $state(false);
+	onMount(() => {
+		isHydrated = true;
 	});
 
 	let searchQuery = $state('');
@@ -207,6 +213,7 @@
 							type="search"
 							placeholder="タイトル・概要・タグで検索..."
 							bind:value={searchQuery}
+							disabled={!isHydrated}
 							class="w-full bg-transparent text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none dark:text-slate-100 sm:flex-1"
 						/>
 					</label>

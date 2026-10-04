@@ -29,14 +29,54 @@ test.describe('blog e2e', () => {
 		await expect(hitCount).toBeVisible();
 		await expect(searchInput).toBeVisible();
 
+		await expect(searchInput).toBeEnabled();
+		const initialHitCount = await hitCount.innerText();
+
 		await searchInput.fill('__no_hit_keyword__');
-		await expect(hitCount).toContainText('0件ヒット');
+		await expect(hitCount).toHaveText('0件ヒット: 記事 0件 / 本 0冊');
 		await expect(page.getByText('該当する記事はありません。')).toBeVisible();
 		await expect(page.getByText('該当する本はありません。')).toBeVisible();
 
 		await page.getByRole('button', { name: 'フィルターをリセット' }).click();
 		await expect(searchInput).toHaveValue('');
-		await expect(hitCount).not.toContainText('0件ヒット');
+		await expect(hitCount).toHaveText(initialHitCount);
+		await expect(page.getByText('該当する記事はありません。')).not.toBeVisible();
+		await expect(page.locator('a[href^="/articles/"]').first()).toBeVisible();
+
+		// A second search must still work after the animated list is restored.
+		await searchInput.fill('__another_no_hit_keyword__');
+		await expect(hitCount).toHaveText('0件ヒット: 記事 0件 / 本 0冊');
+		await expect(page.getByText('該当する記事はありません。')).toBeVisible();
+		await searchInput.fill('');
+		await expect(hitCount).toHaveText(initialHitCount);
+	});
+
+	test('search stays disabled until hydration finishes', async ({ page }) => {
+		let releaseScripts!: () => void;
+		const scriptsReady = new Promise<void>((resolve) => {
+			releaseScripts = resolve;
+		});
+		await page.route('**/*', async (route) => {
+			if (route.request().resourceType() === 'script') await scriptsReady;
+			await route.continue();
+		});
+
+		const searchInput = page.getByPlaceholder('タイトル・概要・タグで検索...');
+		try {
+			await page.goto('/articles', { waitUntil: 'commit' });
+			await expect(searchInput).toBeVisible();
+			await expect(searchInput).toBeDisabled();
+		} finally {
+			releaseScripts();
+		}
+
+		await expect(searchInput).toBeEnabled();
+		await searchInput.fill('__no_hit_keyword__');
+		await expect(page.locator('p', { hasText: '件ヒット' }).first()).toHaveText(
+			'0件ヒット: 記事 0件 / 本 0冊'
+		);
+		await expect(page.getByText('該当する記事はありません。')).toBeVisible();
+		await expect(page.getByText('該当する本はありません。')).toBeVisible();
 	});
 
 	test('profile links to SubTrack service page', async ({ page }) => {
