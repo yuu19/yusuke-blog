@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Loader2, CheckCircle, AlertCircle, ExternalLink } from 'lucide-svelte';
 	import { untrack } from 'svelte';
+	import { fromAction } from 'svelte/attachments';
 	import { superForm } from 'sveltekit-superforms';
 	import { Button } from '$lib/components/ui/button';
 	import { Input } from '$lib/components/ui/input';
@@ -98,7 +99,7 @@
 					</Alert>
 				{/if}
 
-				<form method="POST" use:enhance class="space-y-5">
+				<form method="POST" {@attach fromAction(enhance)} class="space-y-5">
 					<div class="space-y-2">
 						<Label for="name">お名前</Label>
 						<Input
@@ -109,8 +110,8 @@
 							{...$constraints.name}
 							disabled={!data.githubAvailable || $submitting}
 						/>
-						{#if $errors.name?._errors?.length}
-							<p class="text-sm text-red-600 dark:text-red-300">{$errors.name._errors[0]}</p>
+						{#if $errors.name?.length}
+							<p class="text-sm text-red-600 dark:text-red-300">{$errors.name[0]}</p>
 						{/if}
 					</div>
 
@@ -125,8 +126,8 @@
 							required={false}
 							disabled={!data.githubAvailable || $submitting}
 						/>
-						{#if $errors.contact?._errors?.length}
-							<p class="text-sm text-red-600 dark:text-red-300">{$errors.contact._errors[0]}</p>
+						{#if $errors.contact?.length}
+							<p class="text-sm text-red-600 dark:text-red-300">{$errors.contact[0]}</p>
 						{/if}
 					</div>
 
@@ -139,12 +140,12 @@
 							class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-indigo-300 disabled:cursor-not-allowed disabled:opacity-50"
 							disabled={!data.githubAvailable || $submitting}
 						>
-							{#each categoryOptions as category}
+							{#each categoryOptions as category (category)}
 								<option value={category}>{category}</option>
 							{/each}
 						</select>
-						{#if $errors.category?._errors?.length}
-							<p class="text-sm text-red-600 dark:text-red-300">{$errors.category._errors[0]}</p>
+						{#if $errors.category?.length}
+							<p class="text-sm text-red-600 dark:text-red-300">{$errors.category[0]}</p>
 						{/if}
 					</div>
 
@@ -159,8 +160,8 @@
 							{...$constraints.message}
 							disabled={!data.githubAvailable || $submitting}
 						/>
-						{#if $errors.message?._errors?.length}
-							<p class="text-sm text-red-600 dark:text-red-300">{$errors.message._errors[0]}</p>
+						{#if $errors.message?.length}
+							<p class="text-sm text-red-600 dark:text-red-300">{$errors.message[0]}</p>
 						{/if}
 					</div>
 
@@ -176,8 +177,8 @@
 							/>
 							<span>送信内容が公開Issueとして投稿されることに同意します。</span>
 						</label>
-						{#if $errors.consentPublic?._errors?.length}
-							<p class="text-sm text-red-600 dark:text-red-300">{$errors.consentPublic._errors[0]}</p>
+						{#if $errors.consentPublic?.length}
+							<p class="text-sm text-red-600 dark:text-red-300">{$errors.consentPublic[0]}</p>
 						{/if}
 					</div>
 
