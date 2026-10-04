@@ -1,8 +1,8 @@
-import { getArticles } from '$lib/getArticles';
+import { getPublishedArticles } from '$lib/getArticles';
 import { getPublishedBooks } from '$lib/getBooks';
 
 export async function load() {
-	const articles = getArticles();
+	const articles = getPublishedArticles();
 	const books = getPublishedBooks();
 
 	return {
