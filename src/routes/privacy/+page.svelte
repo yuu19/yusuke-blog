@@ -11,7 +11,7 @@
 		<h1 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
 			プライバシーポリシー
 		</h1>
-		<p class="mt-3 text-sm text-slate-600 dark:text-slate-300">最終更新日: 2026-02-25</p>
+		<p class="mt-3 text-sm text-slate-600 dark:text-slate-300">最終更新日: 2026-10-04</p>
 
 		<div class="mt-8 space-y-8 text-slate-700 dark:text-slate-300">
 			<section class="space-y-2">
@@ -37,8 +37,15 @@
 					3. Google AdSense の利用
 				</h2>
 				<p>
-					当サイトでは、第三者配信の広告サービスとして Google AdSense を利用します。Google
-					は、ユーザーの興味に応じた広告を表示するために Cookie を使用することがあります。
+					当サイトでは、第三者配信の広告サービスとして Google AdSense の利用を予定しています。
+					広告配信を開始した場合、Google を含む第三者配信事業者は Cookie を使用し、
+					当サイトや他のウェブサイトへの過去のアクセス情報に基づいて広告を配信することがあります。
+				</p>
+				<p>
+					Google の広告 Cookie により、Google およびそのパートナーは、
+					当サイトや他のウェブサイトへのアクセス情報に基づいたパーソナライズ広告を表示できます。
+					第三者配信事業者や広告ネットワークの広告が掲載される場合は、
+					これらの事業者も広告配信に Cookie を使用することがあります。
 				</p>
 				<p>
 					Google による情報の利用については、以下をご確認ください。<br />
@@ -60,7 +67,20 @@
 					パーソナライズ広告は Google の広告設定ページから無効化できます。ブラウザ設定で Cookie
 					を無効にすることも可能です。
 				</p>
+				<p>
+					一部の第三者配信事業者によるパーソナライズ広告は、Digital Advertising Alliance
+					の設定ページから無効化できます。
+				</p>
 				<ul class="list-disc space-y-1 pl-6">
+					<li>
+						<a
+							class="text-indigo-600 hover:text-indigo-500 dark:text-indigo-300 dark:hover:text-indigo-200"
+							href="https://www.aboutads.info/choices/"
+							target="_blank"
+							rel="noreferrer noopener"
+							>第三者配信事業者の広告設定（Digital Advertising Alliance）</a
+						>
+					</li>
 					<li>
 						<a
 							class="text-indigo-600 hover:text-indigo-500 dark:text-indigo-300 dark:hover:text-indigo-200"
