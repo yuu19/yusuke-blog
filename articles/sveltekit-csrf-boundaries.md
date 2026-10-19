@@ -5,7 +5,7 @@ emoji: '🛡️'
 category: 'tech'
 date: 2026-10-19
 topics: ['svelte', 'sveltekit', 'security', 'csrf']
-blog_published: false
+blog_published: true
 published: false
 ---
 
