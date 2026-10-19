@@ -53,7 +53,7 @@ sequenceDiagram
     else Origin検査などで拒否
         A-->>U: 403など
     end
-    Note over E,A: 攻撃者が応答本文を読めなくても副作用は問題になる
+    Note over U,A: 攻撃者が応答本文を読めなくても副作用は問題になる
 ```
 
 攻撃の成立には、対象のリクエストがユーザーの権限で処理され、望まない副作用が起きることが関わります。「攻撃者がレスポンスを読めるか」だけを見ていると、この点を見落とします。
@@ -297,7 +297,7 @@ sequenceDiagram
     else 許可される
         A-->>C: 必要なCORS許可
         C->>A: 実際のJSON POST
-        Note over C,A: Cookieはcredentials設定とCookie属性などにも依存
+        Note over B,A: Cookieはcredentials設定とCookie属性などにも依存
         A->>A: Content-Type・認証・認可・CSRF方針を検証
         A-->>C: 実レスポンス
         C-->>B: 読み取り条件も満たせば応答を渡す
